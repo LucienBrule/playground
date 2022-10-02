@@ -29,6 +29,18 @@
     </dependencies>
   </dependencyManagement>
   <dependencies>
+
+    <dependency>
+      <groupId>io.brule</groupId>
+      <artifactId>client</artifactId>
+        <version>alpha</version>
+    </dependency>
+
+<!--    <dependency>-->
+<!--      <groupId>io.quarkus</groupId>-->
+<!--      <artifactId>quarkus-webjars-locator</artifactId>-->
+<!--    </dependency>-->
+
     <dependency>
       <groupId>io.quarkus</groupId>
       <artifactId>quarkus-resteasy-reactive-jackson</artifactId>
