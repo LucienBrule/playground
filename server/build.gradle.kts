@@ -40,6 +40,16 @@ dependencies {
 
 }
 
+tasks.processResources{
+    dependsOn(":client:build")
+    val frontendBuildDir = project(":client").buildDir
+    val frontendDistDir = frontendBuildDir.toPath().resolve("dist")
+    from(frontendDistDir) {
+        include("**/*")
+        into("META-INF/resources")
+    }
+}
+
 java {
     sourceCompatibility = JavaVersion.VERSION_17
     targetCompatibility = JavaVersion.VERSION_17
