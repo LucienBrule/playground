@@ -1,28 +1,33 @@
 package io.brule
 
-import javax.ws.rs.GET
+
+import kotlinx.serialization.Serializable
+import javax.enterprise.context.ApplicationScoped
+import javax.inject.Inject
+
+import javax.ws.rs.POST
 import javax.ws.rs.Path
 import javax.ws.rs.Produces
 import javax.ws.rs.core.MediaType
+import org.jboss.logging.Logger
 
+@ApplicationScoped
 @Path("/api")
-class APIResource {
+class APIResource{
 
-    @GET
-    @Produces(MediaType.TEXT_PLAIN)
-    fun hello() = "Hello from RESTEasy Reactive"
+    @Inject
+    lateinit var logger: Logger
 
-    @Path("/time")
+
+    // returns a DummySearchResult
+    @Path("/search")
     @Produces(MediaType.APPLICATION_JSON)
-    @GET
-    fun time() = mapOf("time" to System.currentTimeMillis())
-
-
-    // returns a date like 01/01/2000 00:00:00
-    @Path("/date")
-    @Produces(MediaType.APPLICATION_JSON)
-    @GET
-    fun date() = mapOf("date" to java.time.LocalDateTime.now().toString())
-
-
+    @POST
+    fun search(query: String): DummySearchResult {
+        logger.info("searching for $query")
+        return DummySearchResult("title", "description", "url")
+    }
 }
+
+@Serializable
+data class DummySearchResult(val title: String, val description: String, val url: String)

@@ -27,7 +27,8 @@ val Router = FC<RouterProps> {
                 flexDirection = FlexDirection.row
                 fontFamily = FontFamily.monospace
                 justifyContent = JustifyContent.normal
-                margin = 1.em
+                lineHeight = 4.em
+                paddingLeft = 1.em
                 "div"{
                     width = 10.ch
                     fontSize = 1.em
@@ -51,7 +52,10 @@ val Router = FC<RouterProps> {
         Routes{
             Route{
                 path = "/"
-                element = createElement(Home)
+                element = Home.create{
+                    placeholder = "..."
+                    label = "Submit"
+                }
             }
             Route{
                 path = "/about"

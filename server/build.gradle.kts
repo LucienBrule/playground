@@ -10,6 +10,7 @@ version = "alpha"
 plugins {
     kotlin("jvm") version "1.7.10"
     kotlin("plugin.allopen") version "1.7.10"
+    kotlin("plugin.serialization") version "1.7.10"
     id("io.quarkus") version "2.13.0.Final"
 }
 
@@ -25,7 +26,9 @@ val quarkusPlatformVersion: String by project
 dependencies {
     implementation(enforcedPlatform("${quarkusPlatformGroupId}:${quarkusPlatformArtifactId}:${quarkusPlatformVersion}"))
 
-    implementation("io.quarkus:quarkus-resteasy-reactive-jackson")
+    implementation("io.quarkus:quarkus-kotlin")
+    implementation("io.quarkus:quarkus-resteasy-reactive")
+//    implementation("io.quarkus:quarkus-resteasy-reactive-jackson")
     implementation("io.quarkus:quarkus-resteasy-reactive")
     implementation("io.quarkus:quarkus-kotlin")
     implementation("io.quarkus:quarkus-resteasy-reactive-kotlin-serialization")
@@ -40,15 +43,15 @@ dependencies {
 
 }
 
-tasks.processResources{
-    dependsOn(":client:build")
-    val frontendBuildDir = project(":client").buildDir
-    val frontendDistDir = frontendBuildDir.toPath().resolve("dist")
-    from(frontendDistDir) {
-        include("**/*")
-        into("META-INF/resources")
-    }
-}
+//tasks.processResources{
+//    dependsOn(":client:build")
+//    val frontendBuildDir = project(":client").buildDir
+//    val frontendDistDir = frontendBuildDir.toPath().resolve("dist")
+//    from(frontendDistDir) {
+//        include("**/*")
+//        into("META-INF/resources")
+//    }
+//}
 
 java {
     sourceCompatibility = JavaVersion.VERSION_17

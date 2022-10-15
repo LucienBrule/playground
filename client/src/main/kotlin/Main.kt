@@ -8,7 +8,7 @@ fun main() {
     val container: Element = document.getElementById("root")!!
 
     val app = App.create {
-        name = "Kotlin/JS"
+        name = "Playground"
     }
 
     createRoot(container).render(app)
