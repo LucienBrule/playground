@@ -11,6 +11,7 @@
             <option value="$PROJECT_DIR$" />
             <option value="$PROJECT_DIR$/client" />
             <option value="$PROJECT_DIR$/deployment" />
+            <option value="$PROJECT_DIR$/lib" />
             <option value="$PROJECT_DIR$/server" />
           </set>
         </option>

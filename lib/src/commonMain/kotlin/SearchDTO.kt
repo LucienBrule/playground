@@ -1,3 +1,4 @@
+package io.brule
 import kotlinx.serialization.Serializable
 /**
  * ApiDTO.kt - client
@@ -16,3 +17,6 @@ data class SearchResult(
 
 @Serializable
 data class SearchQuery(val query: String) : ApiDTO()
+
+@Serializable
+data class SearchResults(val results: List<SearchResult>) : ApiDTO()

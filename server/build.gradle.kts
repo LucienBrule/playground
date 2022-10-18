@@ -1,17 +1,13 @@
-
-
 description = "server"
 group = "io.brule"
 version = "alpha"
 
-
-
-
 plugins {
-    kotlin("jvm") version "1.7.10"
-    kotlin("plugin.allopen") version "1.7.10"
-    kotlin("plugin.serialization") version "1.7.10"
-    id("io.quarkus") version "2.13.0.Final"
+    kotlin("jvm")
+    kotlin("plugin.allopen")
+    kotlin("plugin.serialization")
+    id("io.quarkus")
+    id("java")
 }
 
 repositories {
@@ -22,18 +18,32 @@ repositories {
 val quarkusPlatformGroupId: String by project
 val quarkusPlatformArtifactId: String by project
 val quarkusPlatformVersion: String by project
+val ktor_version: String by project
 
 dependencies {
+
+    implementation("io.brule:lib:alpha")
+
     implementation(enforcedPlatform("${quarkusPlatformGroupId}:${quarkusPlatformArtifactId}:${quarkusPlatformVersion}"))
 
     implementation("io.quarkus:quarkus-kotlin")
     implementation("io.quarkus:quarkus-resteasy-reactive")
-//    implementation("io.quarkus:quarkus-resteasy-reactive-jackson")
     implementation("io.quarkus:quarkus-resteasy-reactive")
     implementation("io.quarkus:quarkus-kotlin")
     implementation("io.quarkus:quarkus-resteasy-reactive-kotlin-serialization")
     implementation("io.quarkus:quarkus-arc")
     implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
+    implementation("io.quarkus:quarkus-vertx")
+    implementation("io.quarkus:quarkus-smallrye-reactive-messaging")
+    implementation("io.quarkus:quarkus-websockets")
+
+
+    implementation("io.ktor:ktor-client-core:$ktor_version")
+    implementation("io.ktor:ktor-client-resources:$ktor_version")
+    implementation("io.ktor:ktor-client-cio:$ktor_version")
+
+
+
 
 
     testImplementation("io.quarkus:quarkus-junit5")
@@ -65,6 +75,6 @@ allOpen {
 }
 
 tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile> {
-    kotlinOptions.jvmTarget = JavaVersion.VERSION_1_8.toString()
+    kotlinOptions.jvmTarget = JavaVersion.VERSION_17.toString()
     kotlinOptions.javaParameters = true
 }

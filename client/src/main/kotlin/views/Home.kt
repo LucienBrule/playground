@@ -1,12 +1,19 @@
 import csstype.ClassName
 import csstype.HtmlAttributes
+import io.brule.SearchQuery
+import io.brule.SearchResult
+import io.brule.SearchResults
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 import react.FC
 import react.Props
 import react.dom.html.InputType
+import react.dom.html.ReactHTML.button
 import react.dom.html.ReactHTML.div
 import react.dom.html.ReactHTML.input
 import react.useState
 import react.dom.html.ReactHTML.h3
+import kotlin.js.Promise
 
 external interface HomeProps : Props {
     var placeholder: String;
@@ -17,21 +24,15 @@ external interface HomeProps : Props {
 val Home = FC<HomeProps> {
 //    use state to store the value of the input
     val (query: String, setQuery) = useState("")
-    val (results, setResults) = useState<List<SearchResult>>(listOf())
+    val (results, setResults) = useState<SearchResults>(SearchResults(emptyList()))
 
-//    val (results,setResults) = useState(List<Seadd>)
-    useSearch(
-        url = "http://localhost:9000/api/search",
-        method = "POST",
-        body = SearchQuery(query),
-        onSuccess = { response ->
-            console.log(response)
-        },
-        onError = { error ->
-            console.log(error)
-        },
-        dependencies = arrayOf(query)
-    )
+    val search = {
+        val searchQuery = SearchQuery(query)
+        GlobalScope.launch {
+            setResults( SearchApi().search(searchQuery))
+        }
+    }
+
     div {
         className = ClassName("Home")
         div {
@@ -44,6 +45,13 @@ val Home = FC<HomeProps> {
                 placeholder = it.placeholder
                 onChange = {
                     setQuery(it.target.value)
+                    search()
+                }
+            }
+            button{
+                +"Search"
+                onClick = {
+                    search()
                 }
             }
         }
@@ -53,9 +61,9 @@ val Home = FC<HomeProps> {
             +"Live Search"
 
 
-            results.map { result ->
+            results.results.map { result ->
                 div {
-                    +"${HtmlAttributes.title} - ${result.description}"
+                    +result.toString()
                 }
             }
         }

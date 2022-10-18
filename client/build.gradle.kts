@@ -15,15 +15,18 @@ val api_proxy_target: String by project
 val client_port: String by project
 
 plugins {
-    kotlin("js") version "1.7.10"
-    kotlin("plugin.serialization") version "1.7.10"
+    kotlin("js")
+    kotlin("plugin.serialization")
 }
-
 repositories {
     mavenCentral()
+    mavenLocal()
 }
 
+
 dependencies {
+    implementation("io.brule:lib:alpha")
+
     testImplementation(kotlin("test"))
     implementation("org.jetbrains.kotlin-wrappers:kotlin-react:18.0.0-pre.332-kotlin-1.6.21")
     implementation("org.jetbrains.kotlin-wrappers:kotlin-react-dom:18.0.0-pre.332-kotlin-1.6.21")
