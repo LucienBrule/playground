@@ -10,6 +10,7 @@ fun main() {
     val app = App.create {
         name = "Playground"
     }
+    val cursor = CursorApi()
 
     createRoot(container).render(app)
 }

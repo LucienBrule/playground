@@ -10,6 +10,7 @@ import io.ktor.client.request.*
 import io.ktor.http.*
 
 import io.ktor.serialization.kotlinx.json.*
+import kotlinx.browser.window
 import kotlinx.serialization.json.Json
 
 
@@ -21,7 +22,7 @@ import kotlinx.serialization.json.Json
 
 class SearchApi {
 
-    private val url = "http://localhost:9000/api/search"
+    private val url = "http://${window.location.host}/api/search"
 
     companion object {
         private val client = HttpClient(Js) {
@@ -42,4 +43,5 @@ class SearchApi {
         }
         return response.body<SearchResults>()
     }
+
 }

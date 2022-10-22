@@ -23,8 +23,8 @@ class SearchProvider(
         logger.info("searching")
         logger.info("got $query")
         return SearchResult(
-            title = "test",
-            description = "test",
+            title = "test ${query.query}",
+            description = "your query was ${query.query}",
             url = "http://localhost:8080"
         )
     }

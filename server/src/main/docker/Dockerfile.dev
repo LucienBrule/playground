@@ -1,0 +1,27 @@
+# Dockerfile.dev : server
+FROM fedora:36
+
+# Install dependencies for sdkman
+RUN echo "Updating packages" && dnf install unzip zip curl wget -y; dnf clean all -y;
+
+# Make a user to run the app as
+RUN useradd -ms /bin/bash -d /home/app app
+USER app
+
+# Install sdkman
+RUN echo "Installing sdkman" &&\
+    curl -s "https://get.sdkman.io" | bash
+
+# Install java with sdk man
+RUN echo "Installing Java" &&\
+    source ~/.sdkman/bin/sdkman-init.sh &&\
+    sdk install java 21.3.0.r17-grl
+
+# Expose service port
+ENV PORT 9001
+EXPOSE 9001
+
+# Set working directory
+WORKDIR /app
+
+# Mount source into /app (in docker-compose)

@@ -8,6 +8,11 @@ function InjectWebpackDevServerConfig(config){
             overlay: true,
             progress: true,
             logging: 'info',
+            webSocketURL: {
+                hostname: 'localhost',
+                pathname: '/ws',
+                port: 80,
+            }
         }
     }
 

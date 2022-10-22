@@ -1,23 +1,24 @@
 import csstype.ClassName
-import csstype.HtmlAttributes
 import io.brule.SearchQuery
-import io.brule.SearchResult
 import io.brule.SearchResults
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import react.FC
 import react.Props
 import react.dom.html.InputType
+import react.dom.html.ReactHTML.a
+import react.dom.html.ReactHTML.b
 import react.dom.html.ReactHTML.button
 import react.dom.html.ReactHTML.div
-import react.dom.html.ReactHTML.input
-import react.useState
 import react.dom.html.ReactHTML.h3
-import kotlin.js.Promise
+import react.dom.html.ReactHTML.input
+import react.dom.html.ReactHTML.p
+import react.dom.html.ReactHTML.span
+import react.useState
 
 external interface HomeProps : Props {
     var placeholder: String;
-    var label : String;
+    var label: String;
 }
 
 
@@ -29,7 +30,7 @@ val Home = FC<HomeProps> {
     val search = {
         val searchQuery = SearchQuery(query)
         GlobalScope.launch {
-            setResults( SearchApi().search(searchQuery))
+            setResults(SearchApi().search(searchQuery))
         }
     }
 
@@ -37,7 +38,7 @@ val Home = FC<HomeProps> {
         className = ClassName("Home")
         div {
             className = ClassName("HomeContent")
-            h3{
+            h3 {
                 +"Playground"
             }
             input {
@@ -45,10 +46,9 @@ val Home = FC<HomeProps> {
                 placeholder = it.placeholder
                 onChange = {
                     setQuery(it.target.value)
-                    search()
                 }
             }
-            button{
+            button {
                 +"Search"
                 onClick = {
                     search()
@@ -56,14 +56,36 @@ val Home = FC<HomeProps> {
             }
         }
 
-        div{
+        div {
             className = ClassName("HomeLiveSearch")
-            +"Live Search"
+            span {
+
+                h3 {
+                    +"Live Search"
+                }
+                if (results.results.isNotEmpty())
+                    p {
+                        +"Search results for "
+                        b {
+                            +query
+                        }
+                    }
+            }
 
 
             results.results.map { result ->
                 div {
-                    +result.toString()
+                    className = ClassName("HomeLiveSearchResult")
+                    b {
+                        +result.title
+                    }
+                    p {
+                        +result.description
+                    }
+                    a {
+                        href = result.url
+                        +result.url
+                    }
                 }
             }
         }

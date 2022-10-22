@@ -13,6 +13,7 @@ version = "alpha"
 val ktor_version: String by project
 val api_proxy_target: String by project
 val client_port: String by project
+val client_port_actual = System.getenv("PORT") ?: client_port
 
 plugins {
     kotlin("js")
@@ -26,7 +27,7 @@ repositories {
 
 dependencies {
     implementation("io.brule:lib:alpha")
-
+//    implementation(project(":lib"))
     testImplementation(kotlin("test"))
     implementation("org.jetbrains.kotlin-wrappers:kotlin-react:18.0.0-pre.332-kotlin-1.6.21")
     implementation("org.jetbrains.kotlin-wrappers:kotlin-react-dom:18.0.0-pre.332-kotlin-1.6.21")
@@ -84,9 +85,13 @@ kotlin {
                 bundleAnalyzerReportDir = File(wpReportsDir)
                 reportEvaluatedConfigFile = File(wpReportsDir, "webpack.config.js")
                 devServer = KotlinWebpackConfig.DevServer(
-                    port = client_port.toInt(),
+                    port = client_port_actual.toInt(),
                     proxy = mutableMapOf(
-                        "/api" to api_proxy_target
+                        "/api" to api_proxy_target,
+                        "/api/cursors/ws/forty-two" to mutableMapOf(
+                            "target" to "ws://localhost:9001/api/cursors/ws/forty-two",
+                            "ws" to true
+                        )
                     ),
                     static = mutableListOf(
                         srcResourcesDir

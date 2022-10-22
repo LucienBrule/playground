@@ -1,0 +1,7 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="fullstack" type="CompoundRunConfigurationType">
+    <toRun name="playground:client [browserRun]" type="GradleRunConfiguration" />
+    <toRun name="playground.server" type="QuarkusRunConfigurationType" />
+    <method v="2" />
+  </configuration>
+</component>

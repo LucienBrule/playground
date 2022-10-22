@@ -23,7 +23,7 @@ val ktor_version: String by project
 dependencies {
 
     implementation("io.brule:lib:alpha")
-
+//    implementation(project(":lib"))
     implementation(enforcedPlatform("${quarkusPlatformGroupId}:${quarkusPlatformArtifactId}:${quarkusPlatformVersion}"))
 
     implementation("io.quarkus:quarkus-kotlin")

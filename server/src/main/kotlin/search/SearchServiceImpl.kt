@@ -34,8 +34,8 @@ class SearchServiceImpl(
         return SearchResults(
             results = listOf(
                 SearchResult(
-                    title = "test",
-                    description = "test",
+                    title = "test ${query.query}",
+                    description = "Your query was ${query.query}",
                     url = "http://localhost:8080"
                 ),
                 SearchResult(
@@ -71,18 +71,6 @@ class SearchServiceImpl(
                  .request<SearchResult>("search",query, DeliveryOptions())
                  .toMulti()
                  .onItem().transform { it.body() }
-
-
-
-
-//            return Multi.createFrom().emitter { emitter ->
-//                bus.consumer<SearchResult>("search-result") { message ->
-//                    logger.info("got a result")
-//                    logger.info(message.body())
-//                    emitter.emit(message.body())
-//                }
-//            }
-
 
         }
 

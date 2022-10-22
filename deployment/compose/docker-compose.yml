@@ -1,0 +1,72 @@
+volumes:
+  source:
+
+services:
+  gateway:
+    container_name: gateway
+    image: registry.access.redhat.com/ubi8/nginx-120
+    command: nginx -g "daemon off;"
+    ports:
+      - 80:8080
+    volumes:
+      - ./gateway/nginx.conf:/etc/nginx/nginx.conf:z
+      - ./gateway/modules/:/etc/nginx/modules/:z
+    environment:
+      - NGINX_HOST=playground.brule.io
+      - NGINX_PORT=8080
+    depends_on:
+      - auth
+      - client
+      - server
+
+  client:
+    container_name: client
+    image: io.brule.playground/client:latest
+    working_dir: /app
+    build:
+      context: ../../client
+      dockerfile: src/main/docker/Dockerfile.dev
+    command: client.entrypoint.sh
+    user: "1000:1000"
+    ports:
+      - 9000:8080
+    environment:
+      - NODE_ENV=development
+      - PORT=8080
+    volumes:
+      - ../../:/app:z
+      - ../../client/client.entrypoint.sh:/usr/local/bin/client.entrypoint.sh:z
+      - ~/.m2:/home/app/.m2:z
+
+  server:
+    container_name: server
+    image: io.brule.playground/server:latest
+    privileged: true
+    working_dir: /app
+    entrypoint: server.entrypoint.sh
+    user: "1000:1000"
+    build:
+      context: ../../server
+      dockerfile: src/main/docker/Dockerfile.jvm
+    ports:
+      - 9001:8080
+    environment:
+      - PORT=8080
+    volumes:
+      - ../../:/app:z
+      - ../../server/server.entrypoint.sh:/usr/local/bin/server.entrypoint.sh:z
+      - ~/.m2:/home/app/.m2:z
+
+  auth:
+    container_name: auth
+    image: quay.io/keycloak/keycloak-x
+    command: start-dev
+    volumes:
+      - ./auth/keycloak.properties:/opt/keycloak/conf/keycloak.properties:z
+      - ./auth/development-realm.json:/opt/keycloak/conf/development-realm.json:z
+    ports:
+      - 9002:8080
+    environment:
+      - KEYCLOAK_IMPORT=/opt/keycloak/conf/development-realm.json -Dkeycloak.profile.feature.upload_scripts=enabled
+      - KEYCLOAK_ADMIN=admin
+      - KEYCLOAK_ADMIN_PASSWORD=admin
