@@ -2,20 +2,27 @@
 
 # This image is meant to have the source volume mounted into it
 # at /app
-FROM fedora:36
+#FROM fedora:36
+FROM registry.access.redhat.com/ubi8/openjdk-17:1.11
+USER root
 
-RUN echo "Updating packages" && dnf update -y; dnf install unzip zip curl wget -y; dnf clean all -y;
+##RUN echo "Updating packages" && \
+##    microdnf update -y;  \
+##    microdnf install unzip zip curl wget -y;  \
+##    microdnf clean all -y;
 
 # Make a user to run the app as
 RUN useradd -ms /bin/bash -d /home/app app
+ENV HOME=/home/app
+RUN chown -R app:app /home/app
+RUN chown -R app:app /home/jboss
 USER app
 
-RUN echo "Installing packages" &&  curl -s "https://get.sdkman.io" | bash
-
-RUN echo "Installing Java" && \
-    source  ~/.sdkman/bin/sdkman-init.sh &&\
-    sdk install java 21.3.0.r17-grl
-
+#RUN #echo "Installing packages" &&  curl -s "https://get.sdkman.io" | bash
+#
+##RUN echo "Installing Java" && \
+#    source  ~/.sdkman/bin/sdkman-init.sh &&\
+#    sdk install java 21.3.0.r17-grl
 
 WORKDIR /app
 EXPOSE 9000

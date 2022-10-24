@@ -8,6 +8,6 @@ echo "
  "
 
 
-source ~/.sdkman/bin/sdkman-init.sh
+#source ~/.sdkman/bin/sdkman-init.sh
 
 ./gradlew :client:browserRun --continuous
