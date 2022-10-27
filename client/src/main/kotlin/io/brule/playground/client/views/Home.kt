@@ -1,7 +1,6 @@
 package io.brule.playground.client.views
 
 import csstype.ClassName
-
 import io.brule.playground.client.lib.api.SearchApi
 import io.brule.playground.client.lib.components.View
 import io.brule.playground.lib.SearchQuery
@@ -10,7 +9,6 @@ import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import react.FC
 import react.Props
-import react.displayName
 import react.dom.html.InputType
 import react.dom.html.ReactHTML.a
 import react.dom.html.ReactHTML.b
@@ -101,9 +99,9 @@ val Home = FC<HomeProps> {
 class HomeView(
     override val path: String,
     override val label: String
-): View<HomeProps>(
+) : View<HomeProps>(
     component = Home,
-){
+) {
     companion object {
         const val path = "/"
         const val label = "Home"

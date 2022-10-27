@@ -6,16 +6,17 @@ import react.Props
 import react.dom.html.ReactHTML.div
 
 
-external interface AboutProps : Props{
+external interface AboutProps : Props {
 
 }
 
-val About = FC <AboutProps>{
+val About = FC<AboutProps> {
     +"About"
-    div{
-        + "I am a div"
+    div {
+        +"I am a div"
 
     }
 }
 
-class AboutView(override val path: String, override val label: String) : View<AboutProps> (About)
+class AboutView(override val path: String, override val label: String) :
+    View<AboutProps>(About)

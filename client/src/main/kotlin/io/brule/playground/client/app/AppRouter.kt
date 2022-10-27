@@ -13,8 +13,6 @@ import react.router.dom.BrowserRouter
 import react.router.dom.Link
 
 
-
-
 external interface AppRouterProps : Props {
     var views: List<IView<out Props>>
 }
