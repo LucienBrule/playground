@@ -27,24 +27,25 @@ class SearchServiceImpl(
     val config: Config
 ) : ISearchService {
 
+    companion object{
+        fun getSearchResults(query: SearchQuery): SearchResults{
+            return (0..10).map {
+                SearchResult(
+                    title = "test ${query.query}",
+                    description = "your query was ${query.query}",
+                    url = "http://localhost:8080"
+                )
+            }.let {
+                SearchResults(it)
+            }
+        }
+    }
+
 
 
     override suspend fun search(query: SearchQuery): SearchResults {
         logger.info("searching for ${query.query}")
-        return SearchResults(
-            results = listOf(
-                SearchResult(
-                    title = "test ${query.query}",
-                    description = "Your query was ${query.query}",
-                    url = "http://localhost:8080"
-                ),
-                SearchResult(
-                    title = "test2",
-                    description = "test2",
-                    url = "http://localhost:8080"
-                )
-            )
-        )
+        return getSearchResults(query)
     }
 
     override suspend fun searchStream(query: SearchQuery): Multi<SearchResult> {

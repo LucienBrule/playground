@@ -1,5 +1,8 @@
 volumes:
-  source:
+  client_gradle:
+    driver: local
+  client_build:
+    driver: local
 
 services:
   gateway:
@@ -21,13 +24,12 @@ services:
 
   client:
     container_name: client
-    image: io.brule.playground/client:latest
+    image: brule.io/playground/client:latest
     working_dir: /app
     build:
       context: ../../client
       dockerfile: src/main/docker/Dockerfile.dev
     command: client.entrypoint.sh
-    user: "1000:1000"
     ports:
       - 9000:8080
     environment:
@@ -37,14 +39,15 @@ services:
       - ../../:/app:z
       - ../../client/client.entrypoint.sh:/usr/local/bin/client.entrypoint.sh:z
       - ~/.m2:/home/app/.m2:z
+      - client_gradle:/app/.gradle:rw
+      - client_build:/app/client/build:rw
 
   server:
     container_name: server
-    image: io.brule.playground/server:latest
+    image: brule.io/playground/server:latest
     privileged: true
     working_dir: /app
     entrypoint: server.entrypoint.sh
-    user: "1000:1000"
     build:
       context: ../../server
       dockerfile: src/main/docker/Dockerfile.jvm
@@ -52,10 +55,14 @@ services:
       - 9001:8080
     environment:
       - PORT=8080
+      - QUARKUS_LAUNCH_DEVMODE=true
     volumes:
       - ../../:/app:z
       - ../../server/server.entrypoint.sh:/usr/local/bin/server.entrypoint.sh:z
       - ~/.m2:/home/app/.m2:z
+    tmpfs:
+      - /app/.gradle
+      - /app/server/build
 
   auth:
     container_name: auth

@@ -2,27 +2,25 @@
 
 # This image is meant to have the source volume mounted into it
 # at /app
-#FROM fedora:36
 FROM registry.access.redhat.com/ubi8/openjdk-17:1.11
 USER root
-
-##RUN echo "Updating packages" && \
-##    microdnf update -y;  \
-##    microdnf install unzip zip curl wget -y;  \
-##    microdnf clean all -y;
 
 # Make a user to run the app as
 RUN useradd -ms /bin/bash -d /home/app app
 ENV HOME=/home/app
 RUN chown -R app:app /home/app
-RUN chown -R app:app /home/jboss
-USER app
 
-#RUN #echo "Installing packages" &&  curl -s "https://get.sdkman.io" | bash
-#
-##RUN echo "Installing Java" && \
-#    source  ~/.sdkman/bin/sdkman-init.sh &&\
-#    sdk install java 21.3.0.r17-grl
+# Own the jboss user from the upstream image
+RUN chown -R app:app /home/jboss
+
+# Work around for docker compose
+RUN mkdir /app && \
+    mkdir /app/.gradle && \
+    mkdir /app/client/build -p && \
+    chown -R app:app /app && \
+    chmod -R g+rwx /app
+
+USER app
 
 WORKDIR /app
 EXPOSE 9000

@@ -22,20 +22,30 @@ repositories {
     mavenLocal()
 }
 
+fun kwrapper(target:String): String = "org.jetbrains.kotlin-wrappers:kotlin-$target-pre.413"
+
 
 dependencies {
 //    implementation("io.brule:lib:alpha")
+
+//    implementation(enforcedPlatform(kwrapper("wrappers-bom:322-kotlin-1.6.21")))
+
+
     implementation(project(":lib"))
     testImplementation(kotlin("test"))
-    implementation("org.jetbrains.kotlin-wrappers:kotlin-react:18.0.0-pre.332-kotlin-1.6.21")
-    implementation("org.jetbrains.kotlin-wrappers:kotlin-react-dom:18.0.0-pre.332-kotlin-1.6.21")
-    implementation("org.jetbrains.kotlin-wrappers:kotlin-emotion:11.9.0-pre.332-kotlin-1.6.21")
-    implementation("org.jetbrains.kotlin-wrappers:kotlin-react-router-dom:6.3.0-pre.332-kotlin-1.6.21")
-    implementation("org.jetbrains.kotlin-wrappers:kotlin-redux:4.1.2-pre.332-kotlin-1.6.21")
-    implementation("org.jetbrains.kotlin-wrappers:kotlin-react-redux:7.2.6-pre.332-kotlin-1.6.21")
+    implementation(kwrapper("react:18.2.0"))
+    implementation(kwrapper("react-dom:18.2.0"))
+    implementation(kwrapper("emotion:11.10.4"))
+    implementation(kwrapper("react-router-dom:6.3.0"))
+    implementation(kwrapper("redux:4.1.2"))
+    implementation(kwrapper("react-redux:7.2.6"))
+//    implementation(kwrapper("mui:5.9.1"))
+//    implementation(kwrapper("ring-ui:4.1.5"))
     implementation("io.ktor:ktor-client-js:$ktor_version")
     implementation("io.ktor:ktor-client-content-negotiation:$ktor_version")
     implementation("io.ktor:ktor-serialization-kotlinx-json:$ktor_version")
+
+
 
 
 

@@ -102,7 +102,7 @@
     "@emotion/weak-memoize" "^0.3.0"
     stylis "4.0.13"
 
-"@emotion/css@^11.9.0":
+"@emotion/css@^11.10.0":
   version "11.10.0"
   resolved "https://registry.yarnpkg.com/@emotion/css/-/css-11.10.0.tgz#270b4fdf2419e59cb07081d0e9f7940d88b8b443"
   integrity sha512-dH9f+kSCucc8ilMg0MUA1AemabcyzYpe5EKX24F528PJjD7HyIY/VBNJHxfUdc8l400h2ncAjR6yEDu+DBj2cg==
@@ -130,7 +130,7 @@
   resolved "https://registry.yarnpkg.com/@emotion/memoize/-/memoize-0.8.0.tgz#f580f9beb67176fa57aae70b08ed510e1b18980f"
   integrity sha512-G/YwXTkv7Den9mXDO7AhLWkE3q+I92B+VqAE+dYG4NGPaHZGvt3G8Q0p9vmE+sq7rTGphUbAvmQ9YpbfMQGGlA==
 
-"@emotion/react@^11.9.0":
+"@emotion/react@^11.10.4":
   version "11.10.4"
   resolved "https://registry.yarnpkg.com/@emotion/react/-/react-11.10.4.tgz#9dc6bccbda5d70ff68fdb204746c0e8b13a79199"
   integrity sha512-j0AkMpr6BL8gldJZ6XQsQ8DnS9TxEQu1R+OGmDZiWjBAJtCcbt0tS3I/YffoqHXxH6MjgI7KdMbYKw3MEiU9eA==
@@ -160,7 +160,7 @@
   resolved "https://registry.yarnpkg.com/@emotion/sheet/-/sheet-1.2.0.tgz#771b1987855839e214fc1741bde43089397f7be5"
   integrity sha512-OiTkRgpxescko+M51tZsMq7Puu/KP55wMT8BgpcXVG2hqXc0Vo0mfymJ/Uj24Hp0i083ji/o0aLddh08UEjq8w==
 
-"@emotion/styled@^11.8.1":
+"@emotion/styled@^11.10.4":
   version "11.10.4"
   resolved "https://registry.yarnpkg.com/@emotion/styled/-/styled-11.10.4.tgz#e93f84a4d54003c2acbde178c3f97b421fce1cd4"
   integrity sha512-pRl4R8Ez3UXvOPfc2bzIoV8u9P97UedgHS4FPX594ntwEuAMA114wlaHvOK24HB48uqfXiGlYIZYCxVJ1R1ttQ==
@@ -1092,7 +1092,7 @@ cssesc@^3.0.0:
   resolved "https://registry.yarnpkg.com/cssesc/-/cssesc-3.0.0.tgz#37741919903b868565e1c09ea747445cd18983ee"
   integrity sha512-/Tb/JcjK111nNScGob5MNtsntNM1aCNUDipB/TkwZFhyDrrE47SOx/18wF2bbjgc3ZzCSKW1T5nt5EbFoAz/Vg==
 
-csstype@^3.0.11, csstype@^3.0.2:
+csstype@^3.0.2, csstype@^3.1.1:
   version "3.1.1"
   resolved "https://registry.yarnpkg.com/csstype/-/csstype-3.1.1.tgz#841b532c45c758ee546a11d5bd7b7b473c8c30b9"
   integrity sha512-DJR/VvkAvSZW9bTouZue2sSxDwdTN92uHjqeKVm+0dAqdfNykRzQ95tay8aXMBAAPpUiq4Qcug2L7neoRh2Egw==
@@ -2546,7 +2546,7 @@ raw-body@2.5.1:
     iconv-lite "0.4.24"
     unpipe "1.0.0"
 
-react-dom@18.2.0, react-dom@^18.0.0:
+react-dom@18.2.0, react-dom@^18.2.0:
   version "18.2.0"
   resolved "https://registry.yarnpkg.com/react-dom/-/react-dom-18.2.0.tgz#22aaf38708db2674ed9ada224ca4aa708d821e3d"
   integrity sha512-6IMTriUmvsjHUjNtEDudZfuDQUoWXVxKHhlEGSk81n4YFS+r/Kl99wXiwlVXtPBtJenozv2P+hxDsw9eA7Xo6g==
@@ -2591,7 +2591,7 @@ react-router@6.4.2:
   dependencies:
     "@remix-run/router" "1.0.2"
 
-react@18.2.0, react@^18.0.0:
+react@18.2.0, react@^18.2.0:
   version "18.2.0"
   resolved "https://registry.yarnpkg.com/react/-/react-18.2.0.tgz#555bd98592883255fa00de14f1151a917b5d77d5"
   integrity sha512-/3IjMdb2L9QbBdWiW5e3P2/npwMBaU9mHCSCUzNln0ZCYbcfTsGbTJrU/kGemdH2IWmB2ioZ+zkxtmq6g09fGQ==
