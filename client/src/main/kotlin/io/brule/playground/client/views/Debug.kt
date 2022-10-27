@@ -10,7 +10,7 @@ external interface DebugProps: Props {
 }
 
 val DebugComponent = FC <DebugProps> {
-    +"Debug"
+    + "Debug"
 }
 
 class DebugView(
