@@ -26,12 +26,9 @@ fun kwrapper(target:String): String = "org.jetbrains.kotlin-wrappers:kotlin-$tar
 
 
 dependencies {
-//    implementation("io.brule:lib:alpha")
+    implementation("io.brule:lib:alpha")
 
-//    implementation(enforcedPlatform(kwrapper("wrappers-bom:322-kotlin-1.6.21")))
-
-
-    implementation(project(":lib"))
+//    implementation(project(":lib"))
     testImplementation(kotlin("test"))
     implementation(kwrapper("react:18.2.0"))
     implementation(kwrapper("react-dom:18.2.0"))
