@@ -1,13 +1,19 @@
 package io.brule.playground.client.views
 
+import io.brule.playground.client.lib.components.View
 import react.FC
 import react.Props
-import react.dom.html.ReactHTML.h1
 
-external interface DebugProps : Props
 
-val Debug = FC<DebugProps> {
-    h1 {
-        +"Debug"
-    }
+external interface DebugProps: Props {
+
 }
+
+val DebugComponent = FC <DebugProps> {
+    +"Debug"
+}
+
+class DebugView(
+    override val path: String,
+    override val label: String
+    ) : View<DebugProps>(DebugComponent)

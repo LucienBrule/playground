@@ -1,5 +1,6 @@
 package io.brule.playground.client.app
 
+import io.brule.playground.client.lib.components.View
 import io.brule.playground.client.views.*
 import react.FC
 import react.Props
@@ -9,12 +10,17 @@ external interface AppProps : Props {
 }
 
 
-val App = FC<AppProps> { props ->
+val AppComponent = FC<AppProps> {
     AppRouter {
-        routeLinks = listOf(
-            RouteItem<HomeProps>("Home", "/", Home),
-            RouteItem<AboutProps>("About", "/about", About),
-            RouteItem<DebugProps>("Debug", "/debug", Debug)
+        views = listOf(
+            HomeView("/","Home"),
+            AboutView("/about", "About"),
+            DebugView("/debug", "Debug")
         )
     }
 }
+
+class AppView(
+    override val path: String,
+    override val label: String
+) : View<AppProps>(AppComponent){}

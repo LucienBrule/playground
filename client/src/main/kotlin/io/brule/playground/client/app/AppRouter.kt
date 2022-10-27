@@ -2,6 +2,7 @@ package io.brule.playground.client.app
 
 import csstype.*
 import emotion.react.css
+import io.brule.playground.client.lib.components.IView
 import react.FC
 import react.Props
 import react.create
@@ -12,22 +13,10 @@ import react.router.dom.BrowserRouter
 import react.router.dom.Link
 
 
-interface RoutableItem<T> where T : Props {
-    var label: String
-    var path: String
-    var element: FC<T>
-}
-
-data class RouteItem<T>(
-    override var label: String,
-    override var path: String,
-    override var element: FC<T>
-) :
-    RoutableItem<T> where T : Props
 
 
 external interface AppRouterProps : Props {
-    var routeLinks: List<RoutableItem<out Props>>
+    var views: List<IView<out Props>>
 }
 
 val AppRouter = FC<AppRouterProps> {
@@ -46,7 +35,7 @@ val AppRouter = FC<AppRouterProps> {
                 }
             }
 
-            it.routeLinks.forEach {
+            it.views.forEach {
                 Link {
                     css {
                         color = Color("#61dafb")
@@ -64,10 +53,10 @@ val AppRouter = FC<AppRouterProps> {
         }
 
         Routes {
-            it.routeLinks.forEach {
+            it.views.forEach {
                 Route {
                     path = it.path
-                    element = it.element.create()
+                    element = it.component.create()
                 }
             }
         }

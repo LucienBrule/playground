@@ -1,29 +1,28 @@
 package io.brule.playground.client.lib.components
 
-
-import io.brule.playground.client.app.RoutableItem
-import react.FC
-import react.Props
-
-/*
-    * This is a generic interface for a view component.
-    * It is used to define the type of the view component
-    * that is passed to the RouteItem class.
- */
+import io.brule.playground.client.lib.router.Routable
+import kotlinx.serialization.Serializable
+import react.*
+import kotlin.reflect.typeOf
 
 
-external interface IViewProps<T> where T : IViewProps<T>
-
-interface IView<T> : RoutableItem<T> where T : IViewProps<T>, T : Props {
+interface IView<T : Props> : Routable {
+    val component: FC<T>
 }
 
-abstract class View<T>(override var element: FC<T>) :
-    IView<T> where T : IViewProps<T>, T : Props {
-    override var path: String = ""
-    override var label: String
-        get() = ""
-        set(value) {
-            label = value
-        }
+
+@Serializable
+abstract class View<T>(
+    final override val component: FC<T>,
+) : IView<T> where T : Props {
+    override val label: String = component.displayName ?: "!Un Labeled View!"
+    override val path: String = "/${component.displayName?.lowercase()}"
+
+
+    override fun toString(): String {
+        return "View(label='$label', path='$path')"
+    }
+
 
 }
+
