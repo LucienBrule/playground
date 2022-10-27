@@ -1,6 +1,10 @@
+package io.brule.playground.client.views
+
 import csstype.ClassName
-import io.brule.SearchQuery
-import io.brule.SearchResults
+
+import io.brule.playground.client.lib.api.SearchApi
+import io.brule.playground.lib.SearchQuery
+import io.brule.playground.lib.SearchResults
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import react.FC
@@ -17,8 +21,8 @@ import react.dom.html.ReactHTML.span
 import react.useState
 
 external interface HomeProps : Props {
-    var placeholder: String;
-    var label: String;
+    var placeholder: String
+    var label: String
 }
 
 

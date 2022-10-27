@@ -1,3 +1,5 @@
+package io.brule.playground.client.app
+
 import csstype.*
 import emotion.react.css
 import react.FC

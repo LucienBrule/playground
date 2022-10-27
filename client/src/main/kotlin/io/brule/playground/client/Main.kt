@@ -1,3 +1,6 @@
+package io.brule.playground.client
+
+import io.brule.playground.client.app.App
 import kotlinx.browser.document
 import org.w3c.dom.Element
 import react.create
@@ -10,7 +13,5 @@ fun main() {
     val app = App.create {
         name = "Playground"
     }
-    val cursor = CursorApi()
-
     createRoot(container).render(app)
 }

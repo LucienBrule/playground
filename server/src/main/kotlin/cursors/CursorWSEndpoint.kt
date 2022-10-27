@@ -1,4 +1,4 @@
-package io.brule.cursors
+package io.brule.playground.cursors
 
 import io.quarkus.runtime.StartupEvent
 import org.jboss.logging.Logger

@@ -1,4 +1,4 @@
-:root{
+:root {
     --background-primary: #282a36;
     --background-secondary: #21222C;
     --background-tertiary: #191A21;
@@ -21,7 +21,7 @@ html {
     font-family: monospace;
 }
 
-body, html, #root{
+body, html, #root {
     height: 100%;
     width: 100%;
     margin: 0;
@@ -33,7 +33,7 @@ a {
     text-decoration: none;
 }
 
-.Home{
+.Home {
     height: 80%;
     width: 100%;
     display: flex;
@@ -42,7 +42,7 @@ a {
     justify-content: center;
 }
 
-.HomeContent{
+.HomeContent {
     border: none;
     margin: 0 auto;
     font-size: 1.5em;
@@ -54,8 +54,9 @@ a {
 .HomeContent * {
     margin: 0.5em;
 }
+
 .HomeContent > input {
-    width:30ch;
+    width: 30ch;
     font-size: 1.5em;
     line-height: 1.5em;
     padding-left: 0.25em;
@@ -63,11 +64,12 @@ a {
     background: var(--background-secondary);
     color: var(--foreground);
 }
-.HomeContent > input::placeholder{
+
+.HomeContent > input::placeholder {
 
 }
 
-.HomeContent > button{
+.HomeContent > button {
     border: none;
     width: 10ch;
     align-self: end;
@@ -78,14 +80,14 @@ a {
     padding: .25em;
 }
 
-.HomeLiveSearch{
+.HomeLiveSearch {
     margin: 0 auto;
     justify-content: start;
     height: 100%;
     width: 80ch;
 }
 
-.HomeLiveSearch > div{
+.HomeLiveSearch > div {
     margin: 1em;
     width: 100%;
     display: flex;
@@ -93,7 +95,8 @@ a {
     align-items: start;
     justify-content: start;
 }
-.HomeLiveSearchResult{
+
+.HomeLiveSearchResult {
     line-height: 1.5em;
     margin: 0.5em;
 }

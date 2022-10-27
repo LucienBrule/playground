@@ -1,4 +1,4 @@
-package io.brule.search
+package io.brule.playground.search.server
 
 import io.brule.Config
 import io.brule.SearchQuery

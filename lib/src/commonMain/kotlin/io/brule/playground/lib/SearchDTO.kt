@@ -1,4 +1,5 @@
-package io.brule
+package io.brule.playground.lib
+
 import kotlinx.serialization.Serializable
 /**
  * ApiDTO.kt - client

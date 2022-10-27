@@ -1,10 +1,10 @@
-function InjectWebpackDevServerConfig(config){
+function InjectWebpackDevServerConfig(config) {
     console.log("devServer: ", config.devServer);
 
     config.devServer = {
         ...config.devServer,
         historyApiFallback: true,
-        client:{
+        client: {
             overlay: true,
             progress: true,
             logging: 'info',
@@ -17,4 +17,5 @@ function InjectWebpackDevServerConfig(config){
     }
 
 }
+
 (InjectWebpackDevServerConfig)(config);

@@ -1,6 +1,7 @@
+package io.brule.playground.client.lib.api
 
-import io.brule.SearchQuery
-import io.brule.SearchResults
+import io.brule.playground.lib.SearchQuery
+import io.brule.playground.lib.SearchResults
 import io.ktor.client.*
 import io.ktor.client.call.*
 import io.ktor.client.engine.js.*
