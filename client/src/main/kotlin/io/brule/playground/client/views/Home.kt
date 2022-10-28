@@ -8,6 +8,7 @@ import io.brule.playground.lib.SearchResults
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import react.FC
+import react.Key
 import react.Props
 import react.dom.html.InputType
 import react.dom.html.ReactHTML.a
@@ -101,6 +102,11 @@ class HomeView(
     override val label: String
 ) : View<HomeProps>(
     component = Home,
+    object : HomeProps {
+        override var key: Key? = "Cursors"
+        override var placeholder: String = "Search"
+        override var label: String = "Home"
+    },
 ) {
     companion object {
         const val path = "/"

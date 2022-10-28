@@ -2,12 +2,11 @@ package io.brule.playground.client.views
 
 import io.brule.playground.client.lib.components.View
 import react.FC
+import react.Key
 import react.Props
 
 
-external interface DebugProps : Props {
-
-}
+external interface DebugProps : Props
 
 val DebugComponent = FC<DebugProps> {
     +"Debug"
@@ -16,4 +15,6 @@ val DebugComponent = FC<DebugProps> {
 class DebugView(
     override val path: String,
     override val label: String
-) : View<DebugProps>(DebugComponent)
+) : View<DebugProps>(DebugComponent, object : DebugProps {
+    override var key: Key? = "Debug"
+})

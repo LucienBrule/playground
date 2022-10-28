@@ -15,24 +15,20 @@ import org.w3c.dom.WebSocket
 */
 
 @Serializable
-data class CursorPosition(val x: Int, val y: Int)
+data class CursorPosition(var x: Int, var y: Int)
 
 @Serializable
 data class CursorUpdate(val id: String, val position: CursorPosition)
 
-// Container for all websocket api transfer
-// uses generic T to allow for different types of data to be sent
-@Serializable
-data class WebSocketMessage<T>(val type: String, val data: T)
-
 class CursorApi {
-
 
     private val randomId: String
     private val ws: WebSocket
-    private var position = CursorPosition(0, 0)
+    var position = CursorPosition(0, 0)
+
 
     init {
+        console.log("Cursor API init")
 
         randomId = genRandomId()
         ws = WebSocket("ws://${window.location.host}/api/cursors/ws/$randomId")
@@ -62,8 +58,17 @@ class CursorApi {
         })
     }
 
+    companion object {
+        private val instance = CursorApi()
+        fun getInstance() = instance
+    }
+
     private fun onMouseMove(x: Int, y: Int) {
-        position = CursorPosition(x, y)
+//        console.log("Mouse Moved" , x, y)
+        position.apply {
+            this.x = x
+            this.y = y
+        }
     }
 
     private fun periodic() {
@@ -122,7 +127,6 @@ class CursorApi {
                 console.log("unhandled message type")
             }
         }
-
-
     }
+
 }
