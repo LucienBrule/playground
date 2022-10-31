@@ -10,11 +10,14 @@ import react.dom.client.createRoot
 
 
 fun main() {
-
     console.log("Entrypoint")
+
     val container: Element = document.getElementById("root")!!
+    render_app(container)
 
+}
 
+fun render_app(container: Element){
     val appProps = object : AppProps {
         override var key: Key? = "App"
         override var name: String = "App"
@@ -24,5 +27,6 @@ fun main() {
         label = "App",
         props = appProps
     )
+
     createRoot(container).render(appView.component.create())
 }

@@ -67,6 +67,7 @@ val Home = FC<HomeProps> {
 
                 h3 {
                     +"Live Search"
+
                 }
                 if (results.results.isNotEmpty())
                     p {

@@ -22,10 +22,12 @@ data class CursorUpdate(val id: String, val position: CursorPosition)
 
 class CursorApi {
 
+
+    var watch: Int= 0
     private val randomId: String
     private val ws: WebSocket
     var position = CursorPosition(0, 0)
-
+    var onUpdate: ((CursorPosition) -> Unit)? = null
 
     init {
         console.log("Cursor API init")
@@ -64,11 +66,15 @@ class CursorApi {
     }
 
     private fun onMouseMove(x: Int, y: Int) {
-//        console.log("Mouse Moved" , x, y)
+        console.log("onMouseMove")
         position.apply {
             this.x = x
             this.y = y
         }
+
+        onUpdate?.invoke(position)
+
+        console.log(watch++)
     }
 
     private fun periodic() {
