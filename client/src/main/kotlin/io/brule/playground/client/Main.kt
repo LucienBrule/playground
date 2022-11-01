@@ -13,11 +13,11 @@ fun main() {
     console.log("Entrypoint")
 
     val container: Element = document.getElementById("root")!!
-    render_app(container)
+    renderApp(container)
 
 }
 
-fun render_app(container: Element){
+fun renderApp(container: Element){
     val appProps = object : AppProps {
         override var key: Key? = "App"
         override var name: String = "App"
