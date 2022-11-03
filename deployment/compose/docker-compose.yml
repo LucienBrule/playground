@@ -56,6 +56,7 @@ services:
     environment:
       - PORT=8080
       - QUARKUS_LAUNCH_DEVMODE=true
+      - OPENAI_API_KEY=${OPENAI_API_KEY}
     volumes:
       - ../../:/app:z
       - ../../server/server.entrypoint.sh:/usr/local/bin/server.entrypoint.sh:z
