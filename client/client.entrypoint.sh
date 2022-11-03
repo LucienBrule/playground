@@ -8,4 +8,4 @@ echo "
  "
 
 
-./gradlew :client:browserRun --continuous
+./gradlew :client:browserRun --no-daemon --continuous

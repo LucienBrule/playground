@@ -1,138 +1,86 @@
 package io.brule.playground.client.lib.api
 
-import kotlinx.browser.document
+import io.brule.playground.lib.CursorPosition
+import io.brule.playground.lib.CursorUpdate
+
 import kotlinx.browser.window
-import kotlinx.serialization.Serializable
 import kotlinx.serialization.json.Json
-import kotlinx.serialization.json.JsonObject
-import kotlinx.serialization.json.jsonObject
 import org.w3c.dom.MessageEvent
 import org.w3c.dom.WebSocket
-
-
-/*
-* The CursorApi is responsible for sending and receiving cursor updates from the server.
-*/
-
-@Serializable
-data class CursorPosition(var x: Int, var y: Int)
-
-@Serializable
-data class CursorUpdate(val id: String, val position: CursorPosition)
+import org.w3c.dom.events.Event
 
 class CursorApi {
 
-
-    var watch: Int= 0
-    private val randomId: String
     private val ws: WebSocket
-    var position = CursorPosition(0, 0)
-    var onUpdate: ((CursorPosition) -> Unit)? = null
+    private val id: String = genRandomColor()
+    private val listeners = mutableListOf<(CursorUpdate) -> Unit>()
+    private val cursors = mutableMapOf<String, CursorUpdate>()
 
     init {
-        console.log("Cursor API init")
+        ws = WebSocket("ws://${window.location.host}/api/cursors/ws/${id}")
+        ws.onmessage = { this.onMessage(it) }
+        ws.onopen = { this.onOpen(it) }
+        ws.onclose = { this.onClose(it) }
+        ws.onerror = { this.onError(it) }
 
-        randomId = genRandomId()
-        ws = WebSocket("ws://${window.location.host}/api/cursors/ws/$randomId")
-
-        ws.onopen = {
-            console.log("WS opened")
-            console.log(it)
+        listeners.add { update ->
+            cursors[update.id] = update
         }
-        ws.onmessage = {
-            console.log("WS message")
-            console.log(it)
-            handleWSMessage(it)
-        }
-        ws.onerror = {
-            console.log("WS error")
-            console.log(it)
-        }
-        ws.onclose = {
-            console.log("WS closed")
-            console.log(it)
-        }
-
-        document.addEventListener("mousemove", { event ->
-            val x: Int = event.asDynamic().clientX as Int
-            val y: Int = event.asDynamic().clientY as Int
-            onMouseMove(x, y)
-        })
     }
 
     companion object {
-        private val instance = CursorApi()
-        fun getInstance() = instance
-    }
+        private var instance: CursorApi? = null
 
-    private fun onMouseMove(x: Int, y: Int) {
-        console.log("onMouseMove")
-        position.apply {
-            this.x = x
-            this.y = y
-        }
-
-        onUpdate?.invoke(position)
-
-        console.log(watch++)
-    }
-
-    private fun periodic() {
-        console.log("periodic")
-
-        when (ws.readyState) {
-            WebSocket.OPEN -> {
-                console.log("sending")
-                sendPosition()
+        fun getInstance(): CursorApi {
+            if (instance == null) {
+                instance = CursorApi()
             }
-
-            WebSocket.CONNECTING -> {
-                console.log("connecting")
-            }
-
-            WebSocket.CLOSING -> {
-                console.log("closing")
-            }
-
-            WebSocket.CLOSED -> {
-                console.log("closed")
-            }
-
-            else -> {
-                console.log("unhandled websocket state")
-            }
+            return instance!!
         }
     }
 
-    private fun sendPosition() {
-        val json = Json.encodeToString(
+
+    private fun onOpen(event: Event) {
+        console.log("onOpen")
+    }
+
+    private fun onClose(event: Event) {
+        console.log("onClose")
+    }
+
+    private fun onError(event: Event) {
+        console.log("onError")
+    }
+
+    private fun onMessage(event: MessageEvent) {
+        val update = Json.decodeFromString(
             CursorUpdate.serializer(),
-            CursorUpdate(randomId, position)
+            event.data.toString()
         )
-        ws.send(json)
+        listeners.forEach { it(update) }
     }
 
     private fun genRandomId(): String {
         return (0..10).map { ('a'..'z').random() }.joinToString("")
     }
 
-    private fun handleWSMessage(event: MessageEvent) {
-        val json: JsonObject =
-            Json.parseToJsonElement(event.data.toString()).jsonObject
+    private fun genRandomColor(): String {
+        val hex = (0..0xFFFFFF).random()
+        return hex.toString(16).padStart(6, '0')
+    }
 
-        when (json["type"].toString()) {
-            "cursor" -> {
-                val cursorUpdate = Json.decodeFromString(
+    fun updateCursor(cursorPosition: CursorPosition) {
+        if (ws.readyState == WebSocket.OPEN) {
+            ws.send(
+                Json.encodeToString(
                     CursorUpdate.serializer(),
-                    json["data"].toString()
+                    CursorUpdate(id, cursorPosition)
                 )
-                console.log(cursorUpdate)
-            }
-
-            else -> {
-                console.log("unhandled message type")
-            }
+            )
         }
     }
 
+    fun getCursors(): List<CursorUpdate> {
+        return cursors.values.toList()
+    }
 }

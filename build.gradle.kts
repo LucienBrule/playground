@@ -19,7 +19,6 @@ gradle.taskGraph.whenReady{
 
 tasks.withType<org.jetbrains.kotlin.gradle.targets.js.npm.tasks.RootPackageJsonTask>{
     println("Found RootPackageJsonTask")
-    enabled = true
 }
 //
 gradle.taskGraph.whenReady{

@@ -98,19 +98,19 @@ val Home = FC<HomeProps> {
     }
 }
 
+
 class HomeView(
-    override val path: String,
-    override val label: String
-) : View<HomeProps>(
-    component = Home,
-    object : HomeProps {
-        override var key: Key? = "Cursors"
-        override var placeholder: String = "Search"
-        override var label: String = "Home"
-    },
-) {
+    override val path: String = "/",
+    override val label: String = "Home",
+    override var props: HomeProps? = null
+) : View<HomeProps>(Home, props){
     companion object {
-        const val path = "/"
-        const val label = "Home"
+        fun create(path: String, label: String): HomeView {
+            return HomeView(path,label, object : HomeProps {
+                override var key: Key? = "HomeView"
+                override var placeholder: String = "Search"
+                override var label: String = label
+            })
+        }
     }
 }

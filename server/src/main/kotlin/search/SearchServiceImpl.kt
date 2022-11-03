@@ -1,24 +1,16 @@
 package io.brule.playground.search.server
 
 import io.brule.Config
-import io.brule.SearchQuery
-import io.brule.SearchResult
-import io.brule.SearchResults
-import io.ktor.util.reflect.*
+import io.brule.playground.lib.SearchQuery
+import io.brule.playground.lib.SearchResult
+import io.brule.playground.lib.SearchResults
+
 import io.smallrye.mutiny.Multi
-import io.smallrye.mutiny.Uni
-import io.smallrye.mutiny.helpers.spies.Spy.onFailure
-import io.smallrye.mutiny.helpers.spies.Spy.onItem
-import io.smallrye.mutiny.operators.uni.UniBlockingAwait.await
+
 import io.vertx.core.eventbus.DeliveryOptions
-import io.vertx.core.eventbus.MessageCodec
-import io.vertx.core.json.JsonObject
 import io.vertx.mutiny.core.eventbus.EventBus
 import org.jboss.logging.Logger
-import java.util.concurrent.TimeUnit
-import java.util.function.Function
 import javax.enterprise.context.ApplicationScoped
-import kotlin.reflect.jvm.internal.impl.load.kotlin.JvmType
 
 @ApplicationScoped
 class SearchServiceImpl(
@@ -28,7 +20,7 @@ class SearchServiceImpl(
 ) : ISearchService {
 
     companion object{
-        fun getSearchResults(query: SearchQuery): SearchResults{
+        fun getSearchResults(query: SearchQuery): SearchResults {
             return (0..10).map {
                 SearchResult(
                     title = "test ${query.query}",

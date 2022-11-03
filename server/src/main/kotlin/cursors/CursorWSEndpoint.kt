@@ -1,6 +1,8 @@
 package io.brule.playground.cursors
 
 import io.quarkus.runtime.StartupEvent
+import kotlinx.serialization.Serializable
+import kotlinx.serialization.json.Json
 import org.jboss.logging.Logger
 import java.util.concurrent.ConcurrentHashMap
 import javax.enterprise.context.ApplicationScoped
@@ -105,7 +107,7 @@ class CursorWSEndpoint(
         message: String
     ) {
         logger.info("message from $id: $message")
-        broadcast("user $id: $message")
+        broadcast(message)
     }
 
 
@@ -119,3 +121,4 @@ class CursorWSEndpoint(
         }
     }
 }
+

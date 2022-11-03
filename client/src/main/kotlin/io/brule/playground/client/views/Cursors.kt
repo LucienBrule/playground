@@ -1,20 +1,16 @@
 package io.brule.playground.client.views
 
-import csstype.*
-import emotion.react.css
+
+import csstype.Color
 import io.brule.playground.client.lib.api.CursorApi
-import io.brule.playground.client.lib.api.CursorPosition
+import io.brule.playground.client.lib.components.CursorComponent
 import io.brule.playground.client.lib.components.View
+import io.brule.playground.lib.CursorPosition
 import kotlinx.browser.document
-import react.FC
-import react.Props
-import react.dom.html.InputType
+import react.*
 import react.dom.html.ReactHTML.div
 import react.dom.html.ReactHTML.h1
-import react.dom.html.ReactHTML.input
-import react.dom.html.ReactHTML.pre
-import react.useEffect
-import react.useState
+import react.dom.html.ReactHTML.span
 
 
 external interface CursorsProps : Props {
@@ -22,78 +18,60 @@ external interface CursorsProps : Props {
 
 val CursorsComponent = FC<CursorsProps> {
 
-     /*
-        We are going to make an input box that will accept text and then the render method will render the text
-        This will prove that useState works as intended.
-    */
-
-//    val cursorApi = CursorApi.getInstance()
 
     val (cursor, setCursor) = useState(CursorPosition(0, 0))
 
-    val (text, setText) = useState("")
 
+    val cursorApiRef = useRef(CursorApi.getInstance())
 
     useEffect(cursor) {
-        console.log("Cursor Effect Ran")
 
         fun reportCursorMovement() {
-            console.log("Cursor moved to new position", cursor)
+            cursorApiRef.current?.updateCursor(cursor)
         }
 
         reportCursorMovement()
 
     }
 
-    useEffect{
+    useEffect {
 
-        fun hookMouseMovement(){
-            console.log("Hooking Mouse Movement")
+        fun hookMouseMovement() {
             return document.addEventListener("mousemove", { event ->
-                val x = event.asDynamic().clientX
-                val y = event.asDynamic().clientY
+                val x = event.asDynamic().clientX + 10
+                val y = event.asDynamic().clientY + 10
                 setCursor(CursorPosition(x, y))
             })
         }
 
-        if(cursor.x == 0 && cursor.y == 0) {
+        if (cursor.x == 0 && cursor.y == 0) {
             hookMouseMovement()
         }
 
     }
 
-    useEffect(text) {
-        console.log("Text changed")
-    }
 
     h1 {
         +"Cursors"
     }
 
-    div{
-        +"Input: "
 
-        input{
-            type = InputType.text
-            onChange = {
-                setText(it.target.value)
-            }
+    div {
+        span {
+            +"Current Cursor: ${cursor.x}, ${cursor.y}"
         }
 
-        +"Text: $text"
-    }
-    div{
-        +"Cursor: ${cursor.x}, ${cursor.y}"
+        for (c in cursorApiRef.current?.getCursors()!!) {
+            div {
+                +"${c.id}: ${c.position.x}, ${c.position.y}"
+            }
+        }
     }
 
-    div{
-        css {
-            position = Position.absolute
-            top = cursor.y.px
-            left = cursor.x.px
-            width = 100.px
-            height = 100.px
-            backgroundColor = NamedColor.red
+    for (c in cursorApiRef.current?.getCursors()!!) {
+        CursorComponent {
+            this.position = c.position
+            this.color = Color("#${c.id.substring(0, 6)}")
         }
     }
 
@@ -104,4 +82,12 @@ class CursorsView(
     override val path: String,
     override val label: String,
     override var props: CursorsProps? = null
-) : View<CursorsProps>(CursorsComponent, props)
+) : View<CursorsProps>(CursorsComponent, props) {
+    companion object {
+        fun create(path: String, label: String): CursorsView {
+            return CursorsView(path, label, object : CursorsProps {
+                override var key: Key? = "CursorsView"
+            })
+        }
+    }
+}

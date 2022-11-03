@@ -8,7 +8,6 @@ import react.Key
 import react.create
 import react.dom.client.createRoot
 
-
 fun main() {
     console.log("Entrypoint")
 

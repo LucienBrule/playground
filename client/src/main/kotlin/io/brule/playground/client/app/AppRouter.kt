@@ -3,9 +3,7 @@ package io.brule.playground.client.app
 import csstype.*
 import emotion.react.css
 import io.brule.playground.client.lib.components.IView
-import react.FC
-import react.Props
-import react.create
+import react.*
 import react.dom.html.ReactHTML.div
 import react.router.Route
 import react.router.Routes
@@ -51,10 +49,10 @@ val AppRouter = FC<AppRouterProps> {
         }
 
         Routes {
-            it.views.forEach {
+            it.views.forEach { view ->
                 Route {
-                    path = it.path
-                    element = it.component.create()
+                    path = view.path
+                    element = view.getElement()
                 }
             }
         }
