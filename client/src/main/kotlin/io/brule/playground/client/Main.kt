@@ -16,7 +16,7 @@ fun main() {
 
 }
 
-fun renderApp(container: Element){
+fun renderApp(container: Element) {
     val appProps = object : AppProps {
         override var key: Key? = "App"
         override var name: String = "App"

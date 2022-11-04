@@ -2,7 +2,6 @@ package io.brule.playground.client.views
 
 import io.brule.playground.client.lib.api.MockAPI
 import io.brule.playground.client.lib.components.View
-import kotlinx.js.Object
 import react.*
 import react.dom.html.InputType
 import react.dom.html.ReactHTML.div
@@ -64,9 +63,9 @@ val About = FC<AboutProps> { props ->
             +results
         }
 
-        ol{
-            for (greet in mock.current?.previousGreetings()!!){
-                li{
+        ol {
+            for (greet in mock.current?.previousGreetings()!!) {
+                li {
                     +greet
                 }
             }
@@ -79,10 +78,10 @@ class AboutView(
     override val path: String,
     override val label: String,
     override var props: AboutProps?
-) : View<AboutProps>(About, props){
+) : View<AboutProps>(About, props) {
     companion object {
         fun create(path: String, label: String): AboutView {
-            return AboutView(path, label, object : AboutProps{
+            return AboutView(path, label, object : AboutProps {
                 override var key: Key? = "AboutView"
             })
         }

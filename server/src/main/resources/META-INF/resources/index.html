@@ -4,8 +4,10 @@
 <head>
     <meta charset="UTF-8">
     <title>Quarkus Chat!</title>
-    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/patternfly/3.24.0/css/patternfly.min.css">
-    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/patternfly/3.24.0/css/patternfly-additions.min.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/patternfly/3.24.0/css/patternfly.min.css" rel="stylesheet"
+          type="text/css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/patternfly/3.24.0/css/patternfly-additions.min.css" rel="stylesheet"
+          type="text/css">
 
     <style>
         #chat {
@@ -28,8 +30,10 @@
 <div class="container">
     <br/>
     <div class="row">
-        <input id="name" class="col-md-4" type="text" placeholder="your name">
-        <button id="connect" class="col-md-1 btn btn-primary" type="button">connect</button>
+        <input class="col-md-4" id="name" placeholder="your name" type="text">
+        <button class="col-md-1 btn btn-primary" id="connect" type="button">
+            connect
+        </button>
         <br/>
         <br/>
     </div>
@@ -37,8 +41,11 @@
         <textarea class="col-md-8" id="chat"></textarea>
     </div>
     <div class="row">
-        <input class="col-md-6" id="msg" type="text" placeholder="enter your message">
-        <button class="col-md-1 btn btn-primary" id="send" type="button" disabled>send</button>
+        <input class="col-md-6" id="msg" placeholder="enter your message"
+               type="text">
+        <button class="col-md-1 btn btn-primary" disabled id="send"
+                type="button">send
+        </button>
     </div>
 
 </div>
@@ -51,35 +58,35 @@
     var connected = false;
     var socket;
 
-    $( document ).ready(function() {
+    $(document).ready(function () {
         $("#connect").click(connect);
         $("#send").click(sendMessage);
 
-        $("#name").keypress(function(event){
-            if(event.keyCode == 13 || event.which == 13) {
+        $("#name").keypress(function (event) {
+            if (event.keyCode == 13 || event.which == 13) {
                 connect();
             }
         });
 
-        $("#msg").keypress(function(event) {
-            if(event.keyCode == 13 || event.which == 13) {
+        $("#msg").keypress(function (event) {
+            if (event.keyCode == 13 || event.which == 13) {
                 sendMessage();
             }
         });
 
-        $("#chat").change(function() {
+        $("#chat").change(function () {
             scrollToBottom();
         });
 
         $("#name").focus();
     });
 
-    var connect = function() {
-        if (! connected) {
+    var connect = function () {
+        if (!connected) {
             var name = $("#name").val();
             console.log("Val: " + name);
             socket = new WebSocket("ws://" + location.host + "/chat/" + name);
-            socket.onopen = function() {
+            socket.onopen = function () {
                 connected = true;
                 console.log("Connected to the web socket");
                 $("#send").attr("disabled", false);
@@ -87,7 +94,7 @@
                 $("#name").attr("disabled", true);
                 $("#msg").focus();
             };
-            socket.onmessage =function(m) {
+            socket.onmessage = function (m) {
                 console.log("Got message: " + m.data);
                 $("#chat").append(m.data + "\n");
                 scrollToBottom();
@@ -95,7 +102,7 @@
         }
     };
 
-    var sendMessage = function() {
+    var sendMessage = function () {
         if (connected) {
             var value = $("#msg").val();
             console.log("Sending " + value);

@@ -16,10 +16,10 @@ class DebugView(
     override val path: String,
     override val label: String,
     override var props: DebugProps? = null
-) : View<DebugProps>(DebugComponent,props){
+) : View<DebugProps>(DebugComponent, props) {
     companion object {
         fun create(path: String, label: String): DebugView {
-            return DebugView(path,label, object : DebugProps {
+            return DebugView(path, label, object : DebugProps {
                 override var key: Key? = "DebugView"
             })
         }

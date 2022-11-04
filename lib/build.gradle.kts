@@ -16,22 +16,22 @@ repositories {
 }
 
 
-kotlin{
+kotlin {
     jvm()
     js(IR) {
         binaries.executable()
-        compilations["main"].packageJson{
+        compilations["main"].packageJson {
             version = "0.0.0"
         }
-        browser{
+        browser {
 
         }
 
     }
 
     sourceSets {
-        val commonMain by getting{
-            dependencies{
+        val commonMain by getting {
+            dependencies {
                 implementation("io.ktor:ktor-serialization-kotlinx-json:$ktor_version")
             }
         }

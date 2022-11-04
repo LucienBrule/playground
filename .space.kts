@@ -1,6 +1,6 @@
 // build lib
 val libLabel: String = "lib"
-job(libLabel){
+job(libLabel) {
     host("lib")
 }
 // build server

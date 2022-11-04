@@ -4,7 +4,7 @@ class MockAPI {
 
     private val previousGreets = mutableListOf<String>()
 
-    init{
+    init {
         console.log("MockAPI created")
     }
 
@@ -16,7 +16,7 @@ class MockAPI {
 
     fun getGreeting(idx: Int): String {
 
-        if(idx < 0 || idx >= previousGreets.size){
+        if (idx < 0 || idx >= previousGreets.size) {
             return "No greeting at index $idx"
         }
 

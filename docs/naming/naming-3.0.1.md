@@ -37,7 +37,6 @@ Are short words over long words?
 - Aim for achieving a balance between the two.
 - Optimal words will be between 7 and 12 characters long.
 
-
 Is there a preference for one or many words?
 
 - One word, but two words are acceptable.
@@ -69,6 +68,7 @@ Good names are Zen?
 - The name should be, in general, easy to use. It should not be hard to use.
 
 Good names are memorable?
+
 - Yes.
 
 A good name is a good name?
@@ -130,13 +130,15 @@ Good names have high scores and bad names have low scores.
 Trendy names with pop culture references are preferred over common names.
 
 Each score must be an integer and may only be between `0` and `10`.
-Not every name will have the same score and the best names will have the best scores.
+Not every name will have the same score and the best names will have the best
+scores.
 
-Not every name will have a score of 10, but the best names will have a score of 10.
+Not every name will have a score of 10, but the best names will have a score of
+10.
 
 Each successive name should be completely different from the previous name in
-spelling, meaning, and context, to include the first letter of each name which must be unique.
-
+spelling, meaning, and context, to include the first letter of each name which
+must be unique.
 
 | Index    |   Score  |        Name          |      Meaning                 |
 |----------|----------|----------------------|------------------------------|

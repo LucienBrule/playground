@@ -32,7 +32,7 @@ class SearchProvider(
      * sure the codec is registered.
      */
     @ConsumeEvent("hack")
-    fun hack(a: SearchResult){
+    fun hack(a: SearchResult) {
         TODO()
     }
 

@@ -1,6 +1,7 @@
 package io.brule.playground.lib
 
 import kotlinx.serialization.Serializable
+
 /**
  * ApiDTO.kt - client
  * * Common serializable class for all the api dto's

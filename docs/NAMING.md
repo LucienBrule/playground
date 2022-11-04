@@ -118,17 +118,21 @@ Are short words over long words?
 - There must be a balance between the two.
 
 Is the tld important?
+
 - The tld is not as important as the name itself.
 - Preferably, the tld should be .com, but it is not a requirement.
 
 Are there other extensions that could be used?
+
 - Yes, other extensions can be used.
 - Any valid tld can be used.
 
 Is there a preference for one or many words?
+
 - One word, but two words are acceptable.
 
 Does the name have to be unique?
+
 - The name must be unique among the other names in the list.
 
 ## Why are these good words
@@ -269,10 +273,11 @@ name and optional a top-level domain name.
 
 ## Idea Generation Matrix
 
-The following table is a matrix of made up names and their corresponding meanings.
+The following table is a matrix of made up names and their corresponding
+meanings.
 
 Scores range from 0 to 10, with 10 being the best.
-A score of zero denotes that the name is not allowed, and a score of 10 denotes 
+A score of zero denotes that the name is not allowed, and a score of 10 denotes
 that the name is perfect.
 
 Each Name has a reason for its score, which is listed in the Reason column.

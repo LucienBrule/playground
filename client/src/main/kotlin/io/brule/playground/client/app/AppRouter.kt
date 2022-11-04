@@ -3,7 +3,8 @@ package io.brule.playground.client.app
 import csstype.*
 import emotion.react.css
 import io.brule.playground.client.lib.components.IView
-import react.*
+import react.FC
+import react.Props
 import react.dom.html.ReactHTML.div
 import react.router.Route
 import react.router.Routes

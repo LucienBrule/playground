@@ -1,10 +1,11 @@
 package io.brule.playground.client.app
 
-import io.brule.playground.client.lib.api.MockAPI
 import io.brule.playground.client.lib.components.View
-import io.brule.playground.client.views.*
+import io.brule.playground.client.views.AboutView
+import io.brule.playground.client.views.CursorsView
+import io.brule.playground.client.views.DebugView
+import io.brule.playground.client.views.HomeView
 import react.FC
-import react.Key
 import react.Props
 
 external interface AppProps : Props {
@@ -12,7 +13,6 @@ external interface AppProps : Props {
 }
 
 val AppComponent = FC<AppProps> {
-
 
 
     val appViews = listOf(

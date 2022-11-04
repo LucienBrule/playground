@@ -1,5 +1,3 @@
-
-
 group = "io.brule"
 version = "alpha"
 

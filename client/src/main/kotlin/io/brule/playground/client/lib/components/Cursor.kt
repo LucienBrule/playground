@@ -1,7 +1,10 @@
 package io.brule.playground.client.lib.components
 
 
-import csstype.*
+import csstype.Color
+import csstype.Position
+import csstype.pct
+import csstype.px
 import emotion.react.css
 import io.brule.playground.lib.CursorPosition
 import react.FC
@@ -18,7 +21,7 @@ external interface CursorProps : Props {
 }
 
 val CursorComponent = FC<CursorProps> { props ->
-    div{
+    div {
         css {
             position = Position.absolute
             top = props.position.y.px

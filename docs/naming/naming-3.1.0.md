@@ -206,8 +206,8 @@ It's not Fun - Platform?
 
 - No.
 
- It's FUN-PLAT-FORM ?
- 
+It's FUN-PLAT-FORM ?
+
 - Yes.
 
 Why is it FUN-PLAT-FORM ?
@@ -224,7 +224,7 @@ Why is it not fun?
 define: plat
 
 - plat, which means a flat, thin piece of metal or wood, typically used as a
-  support or base for something. 
+  support or base for something.
 
 Do you mean Fun Flat Form ?
 

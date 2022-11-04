@@ -13,8 +13,10 @@ import react.*
 interface IView<T : Props> : Routable {
     @JsName("component")
     var component: FC<T>
+
     @JsName("props")
     var props: T?
+
     @JsName("getElement")
     fun getElement(): ReactElement<T>
 }

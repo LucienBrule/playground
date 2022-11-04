@@ -1,8 +1,6 @@
 package io.brule.playground.cursors
 
 import io.quarkus.runtime.StartupEvent
-import kotlinx.serialization.Serializable
-import kotlinx.serialization.json.Json
 import org.jboss.logging.Logger
 import java.util.concurrent.ConcurrentHashMap
 import javax.enterprise.context.ApplicationScoped
@@ -15,17 +13,17 @@ import javax.websocket.server.ServerEndpoint
 @ApplicationScoped
 class DebugEndpoint(
     val logger: Logger
-){
+) {
 
     val sessions = ConcurrentHashMap<String, Session>()
 
-    init{
+    init {
         logger.info("DebugEndpoint initialized")
     }
 
     fun observesApplicationStartup(
         @Observes startupEvent: StartupEvent
-    ){
+    ) {
         logger.info("DebugEndpoint observesApplicationStartup")
     }
 
@@ -42,13 +40,21 @@ class DebugEndpoint(
     }
 
     @OnError
-    fun onError(session: Session, throwable: Throwable, @PathParam("username") username: String) {
+    fun onError(
+        session: Session,
+        throwable: Throwable,
+        @PathParam("username") username: String
+    ) {
         logger.info("Session ${session.id} for user $username encountered error: ${throwable.message}")
         sessions.remove(username)
     }
 
     @OnMessage
-    fun onMessage(session: Session, message: String, @PathParam("username") username: String) {
+    fun onMessage(
+        session: Session,
+        message: String,
+        @PathParam("username") username: String
+    ) {
         logger.info("Session ${session.id} received message $message")
         broadcast(message)
     }
@@ -73,7 +79,6 @@ class CursorWSEndpoint(
     }
 
     val sessions = ConcurrentHashMap<String, Session>()
-
 
 
     @OnOpen

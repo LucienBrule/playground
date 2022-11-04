@@ -18,7 +18,6 @@ import react.dom.html.ReactHTML.div
 import react.dom.html.ReactHTML.h3
 import react.dom.html.ReactHTML.input
 import react.dom.html.ReactHTML.p
-import react.dom.html.ReactHTML.span
 import react.useState
 
 external interface HomeProps : Props {
@@ -52,6 +51,11 @@ val Home = FC<HomeProps> {
                 onChange = {
                     setQuery(it.target.value)
                 }
+                onKeyDown = {
+                    if (it.key == "Enter") {
+                        search()
+                    }
+                }
             }
             button {
                 +"Search"
@@ -63,21 +67,6 @@ val Home = FC<HomeProps> {
 
         div {
             className = ClassName("HomeLiveSearch")
-            span {
-
-                h3 {
-                    +"Live Search"
-
-                }
-                if (results.results.isNotEmpty())
-                    p {
-                        +"Search results for "
-                        b {
-                            +query
-                        }
-                    }
-            }
-
 
             results.results.map { result ->
                 div {
@@ -103,10 +92,10 @@ class HomeView(
     override val path: String = "/",
     override val label: String = "Home",
     override var props: HomeProps? = null
-) : View<HomeProps>(Home, props){
+) : View<HomeProps>(Home, props) {
     companion object {
         fun create(path: String, label: String): HomeView {
-            return HomeView(path,label, object : HomeProps {
+            return HomeView(path, label, object : HomeProps {
                 override var key: Key? = "HomeView"
                 override var placeholder: String = "Search"
                 override var label: String = label
