@@ -1,8 +1,11 @@
+
+
 plugins {
-    kotlin("multiplatform") version "1.7.10" apply false
-    kotlin("plugin.serialization") version "1.7.10" apply false
-    kotlin("plugin.allopen") version "1.7.10" apply false
-    id("io.quarkus") version "2.13.2.Final" apply false
+
+    kotlin("multiplatform") apply false
+    kotlin("plugin.serialization") apply false
+    kotlin("plugin.allopen") apply false
+    id("io.quarkus") apply false
 }
 
 gradle.taskGraph.whenReady {
@@ -20,7 +23,7 @@ gradle.taskGraph.whenReady {
 tasks.withType<org.jetbrains.kotlin.gradle.targets.js.npm.tasks.RootPackageJsonTask> {
     println("Found RootPackageJsonTask")
 }
-//
+
 gradle.taskGraph.whenReady {
     println(
         "${"Project".padEnd(16)} | ${"Task".padEnd(32)} | ${

@@ -9,7 +9,7 @@ description = "client"
 group = "io.brule"
 version = "alpha"
 
-val ktor_version: String by project
+val ktorVersion: String by project
 val api_proxy_target: String by project
 val client_port: String by project
 val client_port_actual = System.getenv("PORT") ?: client_port
@@ -40,9 +40,9 @@ dependencies {
     implementation(kwrapper("react-redux:7.2.6"))
 //    implementation(kwrapper("mui:5.9.1"))
 //    implementation(kwrapper("ring-ui:4.1.5"))
-    implementation("io.ktor:ktor-client-js:$ktor_version")
-    implementation("io.ktor:ktor-client-content-negotiation:$ktor_version")
-    implementation("io.ktor:ktor-serialization-kotlinx-json:$ktor_version")
+    implementation("io.ktor:ktor-client-js:$ktorVersion")
+    implementation("io.ktor:ktor-client-content-negotiation:$ktorVersion")
+    implementation("io.ktor:ktor-serialization-kotlinx-json:$ktorVersion")
 
 
 
@@ -132,8 +132,6 @@ kotlin {
 
 
 rootProject.plugins.withType<org.jetbrains.kotlin.gradle.targets.js.yarn.YarnPlugin> {
-    println("This ran")
-
     rootProject.the<org.jetbrains.kotlin.gradle.targets.js.yarn.YarnRootExtension>()
         .apply {
             lockFileDirectory = project(":client").projectDir
