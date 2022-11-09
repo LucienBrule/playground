@@ -73,6 +73,7 @@ npm-debug.log
 
 ## All dist folders anywhere in the project ##
 **/dist/**
+**/build/**
 
 
 ### Gradle ###

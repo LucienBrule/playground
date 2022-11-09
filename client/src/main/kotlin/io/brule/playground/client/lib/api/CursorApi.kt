@@ -83,4 +83,8 @@ class CursorApi {
     fun getCursors(): List<CursorUpdate> {
         return cursors.values.toList()
     }
+
+    fun addListener(listener: (CursorUpdate) -> Unit) {
+        listeners.add(listener)
+    }
 }

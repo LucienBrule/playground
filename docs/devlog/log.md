@@ -20,9 +20,9 @@
         - [ ] ```duckduckgo:```
 - [ ] Collaborative Browsing
     - [ ] Implement support for collaborative browsing
-    - [ ] Bugfix: Cursors don't update in the background
-    - [ ] Benchmark performance of collaborative cursors
-        - [ ] Determine how many cursors can be supported
+    - [x] Bugfix: Cursors don't update in the background
+    - [x] Benchmark performance of collaborative cursors
+        - [x] Determine how many cursors can be supported
 - [ ] User Management
     - [ ] Implement support for user management
     - [ ] Implement support for user authentication

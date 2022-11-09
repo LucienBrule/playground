@@ -1,6 +1,9 @@
 package io.brule.playground.cursors
 
+import io.brule.playground.lib.CursorUpdate
 import io.quarkus.runtime.StartupEvent
+import io.quarkus.vertx.ConsumeEvent
+import kotlinx.serialization.json.Json
 import org.jboss.logging.Logger
 import java.util.concurrent.ConcurrentHashMap
 import javax.enterprise.context.ApplicationScoped
@@ -124,6 +127,13 @@ class CursorWSEndpoint(
                 }
             }
         }
+    }
+
+
+    @ConsumeEvent("cursors")
+    fun consumeCursorUpdate(cursorUpdate: CursorUpdate) {
+        logger.info("consumeCursorUpdate: $cursorUpdate")
+        broadcast(Json.encodeToString(CursorUpdate.serializer(), cursorUpdate))
     }
 }
 

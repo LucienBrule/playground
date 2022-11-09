@@ -2,6 +2,7 @@ package io.brule.playground.client.views
 
 
 import csstype.Color
+import csstype.PropertyName
 import io.brule.playground.client.lib.api.CursorApi
 import io.brule.playground.client.lib.components.CursorComponent
 import io.brule.playground.client.lib.components.View
@@ -21,8 +22,11 @@ val CursorsComponent = FC<CursorsProps> {
 
     val (cursor, setCursor) = useState(CursorPosition(0, 0))
 
-
     val cursorApiRef = useRef(CursorApi.getInstance())
+
+    val (updates, setUpdates) = useState(cursorApiRef.current?.getCursors())
+
+
 
     useEffect(cursor) {
 
@@ -47,6 +51,20 @@ val CursorsComponent = FC<CursorsProps> {
         if (cursor.x == 0 && cursor.y == 0) {
             hookMouseMovement()
         }
+    }
+
+    useEffect{
+
+        fun handleOtherCursorUpdates(){
+            cursorApiRef.current?.addListener { update ->
+                setUpdates(cursorApiRef.current?.getCursors())
+            }
+        }
+
+        if(updates.isNullOrEmpty()){
+            handleOtherCursorUpdates()
+        }
+
 
     }
 
