@@ -30,7 +30,6 @@ fun kwrapper(target: String): String =
 dependencies {
     implementation("io.brule:lib:alpha")
 
-//    implementation(project(":lib"))
     testImplementation(kotlin("test"))
     implementation(kwrapper("react:18.2.0"))
     implementation(kwrapper("react-dom:18.2.0"))
@@ -38,8 +37,6 @@ dependencies {
     implementation(kwrapper("react-router-dom:6.3.0"))
     implementation(kwrapper("redux:4.1.2"))
     implementation(kwrapper("react-redux:7.2.6"))
-//    implementation(kwrapper("mui:5.9.1"))
-//    implementation(kwrapper("ring-ui:4.1.5"))
     implementation("io.ktor:ktor-client-js:$ktorVersion")
     implementation("io.ktor:ktor-client-content-negotiation:$ktorVersion")
     implementation("io.ktor:ktor-serialization-kotlinx-json:$ktorVersion")
@@ -54,20 +51,11 @@ dependencies {
 }
 
 
-// If you uncomment this then the client makes a build directory
-// in the root folder, which is bad.
-rootProject.buildDir = project(":client").buildDir
-
-
-
-
-
-
 kotlin {
 
     js(IR) {
 
-//        buildDir = project(":client").buildDir
+        buildDir = project(":client").buildDir
         binaries.executable()
 
         compilations["main"].packageJson {
@@ -86,10 +74,6 @@ kotlin {
                 val distDir = "$buildDir/distributions"
                 val wpReportsDir = "$wpDir/reports"
                 val srcResourcesDir = "$projectDir/src/main/resources"
-
-                mkdir(wpDir)
-                mkdir(distDir)
-                mkdir(wpReportsDir)
 
                 mode = KotlinWebpackConfig.Mode.DEVELOPMENT
 
@@ -120,6 +104,7 @@ kotlin {
                 sourceMaps = true
                 export = true
                 progressReporter = true
+
 
                 distribution {
                     directory = File(distDir)

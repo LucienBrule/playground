@@ -10,7 +10,6 @@ plugins {
 
 gradle.taskGraph.whenReady {
     if (hasTask(":lib:build")) {
-        println("Found that shit lib:build")
         allTasks.forEach {
             if (it.project.name == "client") {
                 it.enabled = false
@@ -20,10 +19,10 @@ gradle.taskGraph.whenReady {
 }
 
 
-tasks.withType<org.jetbrains.kotlin.gradle.targets.js.npm.tasks.RootPackageJsonTask> {
-    println("Found RootPackageJsonTask")
-}
-
+//tasks.withType<org.jetbrains.kotlin.gradle.targets.js.npm.tasks.RootPackageJsonTask> {
+//    println("Found RootPackageJsonTask")
+//}
+//
 gradle.taskGraph.whenReady {
     println(
         "${"Project".padEnd(16)} | ${"Task".padEnd(32)} | ${
@@ -39,5 +38,11 @@ gradle.taskGraph.whenReady {
         val jclass = it.javaClass.simpleName.padEnd(16)
         val task = it.name.padEnd(32)
         println("$project | $task | $enabled | $jclass")
+    }
+}
+
+tasks.register("hello"){
+    doLast {
+        println("Hello")
     }
 }
