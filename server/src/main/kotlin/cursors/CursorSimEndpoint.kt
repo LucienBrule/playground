@@ -1,8 +1,13 @@
 package io.brule.cursors
 
+import com.badlogic.gdx.math.Vector2
+import com.badlogic.gdx.physics.box2d.BodyDef
 import io.brule.playground.lib.CursorPosition
 import io.brule.playground.lib.CursorUpdate
 import io.vertx.mutiny.core.eventbus.EventBus
+import ktx.box2d.body
+import ktx.box2d.box
+import ktx.box2d.circle
 import org.jboss.logging.Logger
 import javax.enterprise.context.ApplicationScoped
 import javax.ws.rs.Consumes
@@ -58,24 +63,30 @@ class CursorActor(
     val position = CursorPosition(0,0)
     override fun run() {
 
+        val sim = CursorSim()
+        val body = sim.world.body{
+            onCreate {
+                println("created body")
+            }
+           circle(radius = 1f, position = Vector2(0f,0f)){
+                density = 1f
+                friction = 0.3f
+                restitution = 0.5f
+           }
+        }
 
+        val ground = sim.world.body {
+            type= BodyDef.BodyType.StaticBody
+            box(width = Float.POSITIVE_INFINITY, height = 1f)
+        }
         while(true){
 
-            position.x += 1
-            position.y += 1
+            sim.step()
 
-            if(position.x > 500){
-                position.x = 0
-            }
-            if(position.y > 500){
-                position.y = 0
-            }
-
+            position.x = body.position.x.toInt()
+            position.y = body.position.y.toInt()
 
             bus.send("cursors", CursorUpdate(id, position))
-
-
-
             Thread.sleep(100)
         }
     }
