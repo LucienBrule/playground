@@ -6,6 +6,12 @@ plugins {
     kotlin("plugin.serialization") apply false
     kotlin("plugin.allopen") apply false
     id("io.quarkus") apply false
+
+    kotlin("android") apply false
+    id("com.android.application") apply false version "7.2.2"
+    id("com.android.library") apply false version "7.2.2"
+    id("org.jetbrains.compose") apply false
+
 }
 
 gradle.taskGraph.whenReady {
