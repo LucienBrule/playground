@@ -1,11 +1,13 @@
 rootProject.name = "playground"
 include("client")
-include("server")
-include("deployment")
-include("lib")
+include("client:ui")
+include("client:ios")
 include("client:android")
 include("client:desktop")
 include("client:common")
+include("server")
+include("deployment")
+include("lib")
 
 pluginManagement {
     val kotlinVersion: String by settings
@@ -25,8 +27,8 @@ pluginManagement {
 
         // Android
         kotlin("android") version kotlinVersion
-        id("com.android.application") version "7.3.0"
-        id("com.android.library") version "7.3.0"
+        id("com.android.application") version androidVersion
+        id("com.android.library") version androidVersion
         id("org.jetbrains.compose") version composeVersion
     }
 

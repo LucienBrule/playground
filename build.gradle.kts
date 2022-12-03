@@ -1,5 +1,3 @@
-
-
 plugins {
 
     kotlin("multiplatform") apply false
@@ -14,6 +12,7 @@ plugins {
 
 }
 
+
 gradle.taskGraph.whenReady {
     if (hasTask(":lib:build")) {
         allTasks.forEach {
@@ -24,11 +23,6 @@ gradle.taskGraph.whenReady {
     }
 }
 
-
-//tasks.withType<org.jetbrains.kotlin.gradle.targets.js.npm.tasks.RootPackageJsonTask> {
-//    println("Found RootPackageJsonTask")
-//}
-//
 gradle.taskGraph.whenReady {
     println(
         "${"Project".padEnd(16)} | ${"Task".padEnd(32)} | ${
@@ -47,8 +41,11 @@ gradle.taskGraph.whenReady {
     }
 }
 
-tasks.register("hello"){
-    doLast {
-        println("Hello")
+
+allprojects {
+    repositories {
+        maven {
+            url = uri("https://jitpack.io")
+        }
     }
 }
