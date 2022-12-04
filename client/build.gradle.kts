@@ -9,10 +9,25 @@ plugins {
     id("org.jetbrains.compose") apply false
 }
 
-allprojects {
+val enableSeperateBuildPerCPUArchitecture = false
+val enableProgaurdInReleaseBuilds = false
+val enableHermes = true
+val nodeModules: String =
+    project(":client").projectDir.absolutePath + "/node_modules"
+
+subprojects {
+
+
+    this.extra.apply {
+        set("nodeModules", nodeModules)
+    }
 
     repositories {
-        maven("https://maven.pkg.jetbrains.space/public/p/compose/dev")
+        // for android dependencies
+        google()
+
+        // for compose
+        gradlePluginPortal()
 
         // exclude facebook from maven central
         // because it we load it from node_modules
@@ -22,6 +37,15 @@ allprojects {
             }
         }
 
+        // load com.facebook.react from node_modules
+        maven {
+            url = uri("$nodeModules/react-native/android")
+        }
+        // load jsc from node_modules
+        maven {
+            url = uri("$nodeModules/jsc-android/dist")
+        }
+
         // you can use jitpack to get the latest version of a library from github
         // the format is com.github.<github username>:<repo name>:<commit hash>
         // you can also use tags or branches instead of commit hashes
@@ -29,14 +53,17 @@ allprojects {
             url = uri("https://jitpack.io")
         }
 
-        flatDir{
+        // needed for react-native-gradle-plugin
+        flatDir {
             dirs(project(":client").projectDir.absolutePath + "/libs")
         }
+
+        maven("https://maven.pkg.jetbrains.space/public/p/compose/dev")
     }
 }
 
-configurations.all{
-    resolutionStrategy{
+configurations.all {
+    resolutionStrategy {
         force("com.facebook.react:react-native:0.70.6")
     }
 }
@@ -134,3 +161,25 @@ tasks.named("fetchNpmDependencies").configure {
 }
 
 tasks["check"].dependsOn("copyReactNativeGradlePluginToLibs")
+
+
+project.extra["react"] = mapOf(
+    "cliPath" to project(":client").projectDir.absolutePath + "/node_modules/react-native/cli.js",
+    "root" to project(":client").projectDir.absolutePath, // the react root
+    "bundleConfig" to "metro.config.js",
+    "entryFile" to "ui/src/index.js",
+    "bundleAssetName" to "index.android.bundle",
+    "enableHermes" to enableHermes,
+    "hermesCommand" to "$nodeModules/react-native/sdks/hermesc/linux64-bin/hermesc",
+    "composeSourceMapsPath" to "$nodeModules/react-native/scripts/compose-source-maps.js",
+    "bundleInDebug" to true,
+    "bundleInRelease" to true,
+    "jsBundleDirDebug" to "$buildDir/intermediates/assets/debug",
+    "jsBundleDirRelease" to "$buildDir/intermediates/assets/release",
+    "resourcesDirDebug" to "$buildDir/intermediates/res/merged/debug",
+    "resourcesDirRelease" to "$buildDir/intermediates/res/merged/release",
+    "inputExcludes" to listOf("node_modules/**"),
+    "nodeExecutableAndArgs" to listOf("node"),
+)
+
+

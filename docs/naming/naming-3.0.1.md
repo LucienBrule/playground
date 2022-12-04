@@ -134,6 +134,7 @@ Not every name will have the same score and the best names will have the best
 scores.
 
 Not every name will have a score of 10, but the best names will have a score of
+
 10.
 
 Each successive name should be completely different from the previous name in

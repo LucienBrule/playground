@@ -1,16 +1,19 @@
 package io.brule.cursors
 
-import com.badlogic.gdx.physics.box2d.*
+import com.badlogic.gdx.physics.box2d.Contact
+import com.badlogic.gdx.physics.box2d.ContactImpulse
+import com.badlogic.gdx.physics.box2d.ContactListener
+import com.badlogic.gdx.physics.box2d.Manifold
 import ktx.box2d.createWorld
 import ktx.box2d.earthGravity
 
 class CursorSim {
 
-    val world = createWorld(gravity =  earthGravity)
+    val world = createWorld(gravity = earthGravity)
 
-    fun step(){
+    fun step() {
         println("step")
-        world.step(1f/60f,6,2)
+        world.step(1f / 60f, 6, 2)
     }
 
     init {

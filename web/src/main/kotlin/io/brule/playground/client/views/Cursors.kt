@@ -53,15 +53,15 @@ val CursorsComponent = FC<CursorsProps> {
         }
     }
 
-    useEffect{
+    useEffect {
 
-        fun handleOtherCursorUpdates(){
+        fun handleOtherCursorUpdates() {
             cursorApiRef.current?.addListener { update ->
                 setUpdates(cursorApiRef.current?.getCursors())
             }
         }
 
-        if(updates.isNullOrEmpty()){
+        if (updates.isNullOrEmpty()) {
             handleOtherCursorUpdates()
         }
 

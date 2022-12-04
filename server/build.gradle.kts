@@ -44,7 +44,7 @@ dependencies {
     implementation("io.ktor:ktor-client-cio:$ktorVersion")
     implementation("io.ktor:ktor-client-auth:$ktorVersion")
 
-    api(group = "io.github.libktx",name="ktx-box2d",version = ktxVersion)
+    api(group = "io.github.libktx", name = "ktx-box2d", version = ktxVersion)
     api(group = "com.badlogicgames.gdx", name = "gdx-box2d")
 
 

@@ -1,6 +1,6 @@
 /**
  * Metro configuration for React Native
- * https://github.com/facebook/react-native
+ * https://facebook.github.io/metro/docs/configuration
  *
  * @format
  */
@@ -9,7 +9,7 @@ module.exports = {
     projectRoot: __dirname,
     resolver: {
 
-      nodeModulesPaths: [__dirname + '/node_modules'],
+        nodeModulesPaths: [__dirname + '/node_modules'],
     },
     transformer: {
         getTransformOptions: async () => ({

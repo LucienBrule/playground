@@ -8,6 +8,7 @@ include("client:common")
 include("server")
 include("deployment")
 include("lib")
+include("web")
 
 pluginManagement {
     val kotlinVersion: String by settings

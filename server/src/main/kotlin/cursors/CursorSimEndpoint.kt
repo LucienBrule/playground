@@ -16,8 +16,6 @@ import javax.ws.rs.Path
 import javax.ws.rs.Produces
 import javax.ws.rs.core.MediaType
 import kotlin.concurrent.thread
-import kotlin.math.cos
-import kotlin.math.sin
 
 @ApplicationScoped
 @Path("/api/cursors")
@@ -28,8 +26,7 @@ class CursorSimEndpoint(
     val bus: EventBus
 ) {
 
-    val actors = mutableMapOf<String,CursorActor>()
-
+    val actors = mutableMapOf<String, CursorActor>()
 
 
     /**
@@ -37,7 +34,7 @@ class CursorSimEndpoint(
      */
     @PUT
     @Path("/sim")
-    fun sim() : String{
+    fun sim(): String {
         logger.info("CursorSimEndpoint.sim")
 
         // create a cursor actor and add it to the map
@@ -55,31 +52,30 @@ class CursorSimEndpoint(
 
 class CursorActor(
     val bus: EventBus
-): Runnable{
-
+) : Runnable {
 
 
     val id = (0..0xffffff).random().toString(16).padStart(6, '0')
-    val position = CursorPosition(0,0)
+    val position = CursorPosition(0, 0)
     override fun run() {
 
         val sim = CursorSim()
-        val body = sim.world.body{
+        val body = sim.world.body {
             onCreate {
                 println("created body")
             }
-           circle(radius = 1f, position = Vector2(0f,0f)){
+            circle(radius = 1f, position = Vector2(0f, 0f)) {
                 density = 1f
                 friction = 0.3f
                 restitution = 0.5f
-           }
+            }
         }
 
         val ground = sim.world.body {
-            type= BodyDef.BodyType.StaticBody
+            type = BodyDef.BodyType.StaticBody
             box(width = Float.POSITIVE_INFINITY, height = 1f)
         }
-        while(true){
+        while (true) {
 
             sim.step()
 

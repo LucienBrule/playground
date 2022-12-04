@@ -8,12 +8,14 @@ import com.facebook.react.shell.MainReactPackage
 import com.facebook.soloader.SoLoader
 
 
-class MainApplication: Application(), ReactApplication{
+class MainApplication : Application(), ReactApplication {
 
 
     private val mReactNativeHost = object : ReactNativeHost(this) {
         override fun getUseDeveloperSupport(): Boolean = BuildConfig.DEBUG
-        override fun getPackages(): List<ReactPackage> = listOf(MainReactPackage())
+        override fun getPackages(): List<ReactPackage> =
+            listOf(MainReactPackage())
+
         override fun getJSMainModuleName(): String = "index"
     }
 
