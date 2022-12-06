@@ -1,7 +1,11 @@
 volumes:
-  client_gradle:
+  web_build_root:
     driver: local
-  client_build:
+  web_build_src:
+    driver: local
+  web_build:
+    driver: local
+  web_build_gradle:
     driver: local
 
 services:
@@ -19,28 +23,35 @@ services:
       - NGINX_PORT=8080
     depends_on:
       - auth
-      - client
+      - web
       - server
 
-  client:
-    container_name: client
-    image: brule.io/playground/client:latest
+  web:
+    container_name: web
+    image: brule.io/playground/web:latest
     working_dir: /app
     build:
-      context: ../../client
+      context: ../../web
       dockerfile: src/main/docker/Dockerfile.dev
-    command: client.entrypoint.sh
+    command: web.entrypoint.sh
     ports:
       - 9000:8080
     environment:
       - NODE_ENV=development
       - PORT=8080
     volumes:
+      # mount the whole source tree to the container
       - ../../:/app:z
-      - ../../client/client.entrypoint.sh:/usr/local/bin/client.entrypoint.sh:z
+      # mask the build directories
+      - web_build_root:/app/build:rw
+      - web_build_src:/app/buildSrc/build:rw
+      - web_build:/app/web/build:rw
+      # put the entrypoint in the path
+      - ../../web/web.entrypoint.sh:/usr/local/bin/web.entrypoint.sh:z
+      # load local m2 repo so it can use cached dependencies
       - ~/.m2:/home/app/.m2:z
-      - client_gradle:/app/.gradle:rw
-      - client_build:/app/client/build:rw
+      - web_build_gradle:/app/.gradle
+
 
   server:
     container_name: server

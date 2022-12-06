@@ -7,6 +7,7 @@ include("client:desktop")
 include("client:common")
 include("server")
 include("deployment")
+include("deployment:compose")
 include("lib")
 include("web")
 

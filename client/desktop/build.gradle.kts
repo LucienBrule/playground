@@ -2,6 +2,7 @@ import org.jetbrains.compose.desktop.application.dsl.TargetFormat
 
 plugins {
     kotlin("multiplatform")
+    id("org.openjfx.javafxplugin")
     id("org.jetbrains.compose")
 }
 
@@ -21,6 +22,13 @@ kotlin {
             dependencies {
                 implementation(project(":client:common"))
                 implementation(compose.desktop.currentOs)
+                implementation(compose.uiTooling)
+                implementation(compose.runtime)
+                implementation(compose.foundation)
+                implementation(compose.material)
+                implementation(compose.materialIconsExtended)
+                implementation(compose.animation)
+                implementation(compose.animationGraphics)
 
             }
         }
@@ -33,8 +41,13 @@ compose.desktop {
         mainClass = "MainKt"
         nativeDistributions {
             targetFormats(TargetFormat.Rpm)
-            packageName = "client"
+            packageName = "io.brule.playground.desktop"
             packageVersion = "1.0.0"
         }
     }
+}
+
+javafx{
+    version = "17"
+    modules = listOf("javafx.controls", "javafx.swing","javafx.web", "javafx.graphics")
 }

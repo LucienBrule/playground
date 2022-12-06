@@ -20,6 +20,7 @@
             <option value="$PROJECT_DIR$/client/ios" />
             <option value="$PROJECT_DIR$/client/ui" />
             <option value="$PROJECT_DIR$/deployment" />
+            <option value="$PROJECT_DIR$/deployment/compose" />
             <option value="$PROJECT_DIR$/lib" />
             <option value="$PROJECT_DIR$/server" />
             <option value="$PROJECT_DIR$/web" />

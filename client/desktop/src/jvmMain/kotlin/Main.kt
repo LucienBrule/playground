@@ -1,10 +1,125 @@
-// Copyright 2000-2021 JetBrains s.r.o. and contributors. Use of this source code is governed by the Apache 2.0 license that can be found in the LICENSE file.
+import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.DisposableEffect
+import androidx.compose.runtime.remember
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.awt.ComposeWindow
+import androidx.compose.ui.geometry.Offset
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.layout.Layout
+import androidx.compose.ui.layout.onGloballyPositioned
+import androidx.compose.ui.platform.LocalDensity
+import androidx.compose.ui.unit.DpSize
+import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.round
 import androidx.compose.ui.window.Window
+import androidx.compose.ui.window.WindowPlacement
+import androidx.compose.ui.window.WindowState
 import androidx.compose.ui.window.application
-import io.brule.playground.common.App
+import javafx.application.Platform
+import javafx.concurrent.Worker
+import javafx.embed.swing.JFXPanel
+import javafx.scene.Scene
+import javafx.scene.web.WebView
+import netscape.javascript.JSObject
+import java.awt.BorderLayout
+import javax.swing.JPanel
 
 fun main() = application {
-    Window(onCloseRequest = ::exitApplication) {
-        App()
+
+
+
+    Window(
+        title = "WebView Test",
+        resizable = false,
+        state = WindowState(
+            placement = WindowPlacement.Floating,
+            size = DpSize(800.dp, 600.dp)
+        ),
+        onCloseRequest = {
+            exitApplication()
+        },
+        content = {
+            val jfxPanel = remember { JFXPanel() }
+            var jsObject = remember<JSObject?> { null }
+
+            Box(modifier = Modifier.fillMaxSize().background(Color.White)) {
+
+                ComposeJFXPanel(
+                    composeWindow = window,
+                    jfxPanel = jfxPanel,
+                    onCreate = {
+                        Platform.runLater {
+                            val root = WebView()
+                            val engine = root.engine
+                            val scene = Scene(root)
+                            engine.loadWorker.stateProperty()
+                                .addListener { _, _, newState ->
+                                    if (newState === Worker.State.SUCCEEDED) {
+                                        jsObject =
+                                            root.engine.executeScript("window") as JSObject
+                                        // execute other javascript / setup js callbacks fields etc..
+                                    }
+                                }
+                            engine.loadWorker.exceptionProperty()
+                                .addListener { _, _, newError ->
+                                    println("page load error : $newError")
+                                }
+                            jfxPanel.scene = scene
+
+                            // this is the important part
+                            engine.load("http://localhost/")
+
+                            engine.setOnError { error -> println("onError : $error") }
+                        }
+                    }, onDestroy = {
+                        Platform.runLater {
+                            jsObject?.let { jsObj ->
+                                // clean up code for more complex implementations i.e. removing javascript callbacks etc..
+                            }
+                        }
+                    })
+            }
+        })
+}
+
+@Composable
+fun ComposeJFXPanel(
+    composeWindow: ComposeWindow,
+    jfxPanel: JFXPanel,
+    onCreate: () -> Unit,
+    onDestroy: () -> Unit = {}
+) {
+    val jPanel = remember { JPanel() }
+    val density = LocalDensity.current.density
+
+    Layout(
+        content = {},
+        modifier = Modifier.onGloballyPositioned { childCoordinates ->
+            val coordinates = childCoordinates.parentCoordinates!!
+            val location = coordinates.localToWindow(Offset.Zero).round()
+            val size = coordinates.size
+            jPanel.setBounds(
+                (location.x / density).toInt(),
+                (location.y / density).toInt(),
+                (size.width / density).toInt(),
+                (size.height / density).toInt()
+            )
+            jPanel.validate()
+            jPanel.repaint()
+        },
+        measurePolicy = { _, _ -> layout(0, 0) {} })
+
+    DisposableEffect(jPanel) {
+        composeWindow.add(jPanel)
+        jPanel.layout = BorderLayout(0, 0)
+        jPanel.add(jfxPanel)
+        onCreate()
+        onDispose {
+            onDestroy()
+            composeWindow.remove(jPanel)
+        }
     }
 }

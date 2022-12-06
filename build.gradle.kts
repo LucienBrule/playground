@@ -10,13 +10,15 @@ plugins {
     id("com.android.library") apply false version "7.2.2"
     id("org.jetbrains.compose") apply false
 
+    id("org.openjfx.javafxplugin") apply false version "0.0.10"
+
 }
 
 
 gradle.taskGraph.whenReady {
     if (hasTask(":lib:build")) {
         allTasks.forEach {
-            if (it.project.name == "client") {
+            if (it.project.name == "web") {
                 it.enabled = false
             }
         }
@@ -38,14 +40,5 @@ gradle.taskGraph.whenReady {
         val jclass = it.javaClass.simpleName.padEnd(16)
         val task = it.name.padEnd(32)
         println("$project | $task | $enabled | $jclass")
-    }
-}
-
-
-allprojects {
-    repositories {
-        maven {
-            url = uri("https://jitpack.io")
-        }
     }
 }

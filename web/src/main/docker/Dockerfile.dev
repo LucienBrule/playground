@@ -15,8 +15,10 @@ RUN chown -R app:app /home/jboss
 
 # Work around for docker compose
 RUN mkdir /app && \
+    mkdir /app/build && \
     mkdir /app/.gradle && \
-    mkdir /app/client/build -p && \
+    mkdir /app/buildSrc/build -p && \
+    mkdir /app/web/build -p && \
     chown -R app:app /app && \
     chmod -R g+rwx /app
 
