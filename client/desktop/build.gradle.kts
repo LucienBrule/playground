@@ -40,6 +40,8 @@ compose.desktop {
     application {
         mainClass = "MainKt"
         nativeDistributions {
+            modules("java.instrument","java.net.http","java.jfr","jdk.jsobject","jdk.unsupported","jdk.unsupported.desktop", "jdk.xml.dom")
+
             targetFormats(TargetFormat.Rpm)
             packageName = "io.brule.playground.desktop"
             packageVersion = "1.0.0"
@@ -48,6 +50,6 @@ compose.desktop {
 }
 
 javafx{
-    version = "17"
+    version = "19"
     modules = listOf("javafx.controls", "javafx.swing","javafx.web", "javafx.graphics")
 }
