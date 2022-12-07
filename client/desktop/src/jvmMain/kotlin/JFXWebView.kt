@@ -4,12 +4,12 @@ import javafx.concurrent.Worker
 import javafx.embed.swing.JFXPanel
 import javafx.event.EventHandler
 import javafx.scene.Scene
+import javafx.scene.paint.Color
 import javafx.scene.web.WebEngine
 import javafx.scene.web.WebErrorEvent
 import javafx.scene.web.WebEvent
 import javafx.scene.web.WebView
 import netscape.javascript.JSObject
-import java.awt.SystemColor.window
 
 @Suppress("SetJavaScriptEnabled")
 class JFXWebView(url: String) : JFXPanel() {
@@ -32,7 +32,9 @@ class JFXWebView(url: String) : JFXPanel() {
     }
 
     private fun initScene() {
-        val webview = WebView()
+        val webview = WebView().also {
+            it.pageFill = Color.TRANSPARENT
+        }
         engine = webview.engine.apply {
             isJavaScriptEnabled = true
             isDebugInspectorInfoEnabled = true
@@ -46,7 +48,7 @@ class JFXWebView(url: String) : JFXPanel() {
                 }
             }
         }
-        scene = Scene(webview)
+        scene = Scene(webview).also { it.fill = Color.TRANSPARENT }
     }
 
     fun load(url: String) {
