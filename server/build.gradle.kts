@@ -18,7 +18,8 @@ repositories {
 val quarkusPlatformGroupId: String by project
 val quarkusPlatformArtifactId: String by project
 val quarkusPlatformVersion: String by project
-val ktor_version: String by project
+val ktorVersion: String by project
+val ktxVersion: String by project
 
 dependencies {
 
@@ -38,9 +39,13 @@ dependencies {
     implementation("io.quarkus:quarkus-websockets")
 
 
-    implementation("io.ktor:ktor-client-core:$ktor_version")
-    implementation("io.ktor:ktor-client-resources:$ktor_version")
-    implementation("io.ktor:ktor-client-cio:$ktor_version")
+    implementation("io.ktor:ktor-client-core:$ktorVersion")
+    implementation("io.ktor:ktor-client-resources:$ktorVersion")
+    implementation("io.ktor:ktor-client-cio:$ktorVersion")
+    implementation("io.ktor:ktor-client-auth:$ktorVersion")
+
+    api(group = "io.github.libktx", name = "ktx-box2d", version = ktxVersion)
+    api(group = "com.badlogicgames.gdx", name = "gdx-box2d")
 
 
 

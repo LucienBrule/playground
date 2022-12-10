@@ -1,0 +1,73 @@
+@startuml
+!theme carbon-gray
+
+top to bottom direction
+
+package "Playground"{
+    node "Client" as "Client" {
+        [State]
+        [Services]
+        [Render]
+        [Controller]
+
+        [Services] -d-> [State]
+        [State] -d-> [Render]
+        [Render] -l-> [Controller]
+        [Controller] -r-> [State]
+
+
+        port c_http as "HTTP"
+        port c_ws as "WebSocket"
+
+        c_http <-r- [Services]
+        c_ws <-l-> [Services]
+
+    }
+    node "Server" as "Server" {
+
+        port s_http as "HTTP"
+        port s_ws as "WebSocket"
+
+        folder s_endpoints as "Endpoints" {
+            [s_http_endpoint ] as "HTTP"
+            [s_ws_endpoint] as "WS"
+            port e_mq as "MQ"
+
+        }
+
+        folder s_services as "Services" {
+            [Search]
+            [Chat]
+            port s_mq as "MQ"
+        }
+
+        e_mq -r- s_mq
+    }
+}
+
+
+package backing_services{
+
+    database app_db  {
+        [app_user]
+        [app_chat]
+        [app_message]
+    }
+
+    database search_db {
+        [search_index]
+    }
+
+
+    database graph_db{
+        [search_index_link]
+    }
+
+    note "Full text search" as search_note
+
+    note "Neo 4J" as graph_note
+
+}
+
+
+@enduml

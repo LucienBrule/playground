@@ -1,14 +1,10 @@
-package io.brule.search
+package io.brule.playground.search.server
 
-import io.brule.SearchQuery
-import io.brule.SearchResult
-import io.brule.SearchResults
+
+import io.brule.playground.lib.SearchQuery
+import io.brule.playground.lib.SearchResult
 import io.quarkus.vertx.ConsumeEvent
-import io.smallrye.mutiny.Multi
 import io.vertx.mutiny.core.eventbus.EventBus
-import io.vertx.mutiny.core.eventbus.Message
-import org.eclipse.microprofile.reactive.messaging.Incoming
-import org.eclipse.microprofile.reactive.messaging.Outgoing
 import org.jboss.logging.Logger
 import javax.enterprise.context.ApplicationScoped
 
@@ -19,7 +15,7 @@ class SearchProvider(
 ) {
 
     @ConsumeEvent("search")
-    fun search(query: SearchQuery): SearchResult{
+    fun search(query: SearchQuery): SearchResult {
         logger.info("searching")
         logger.info("got $query")
         return SearchResult(
@@ -36,7 +32,7 @@ class SearchProvider(
      * sure the codec is registered.
      */
     @ConsumeEvent("hack")
-    fun hack(a: SearchResult){
+    fun hack(a: SearchResult) {
         TODO()
     }
 

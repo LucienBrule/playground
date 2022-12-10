@@ -1,5 +1,3 @@
-
-
 group = "io.brule"
 version = "alpha"
 
@@ -10,3 +8,5 @@ repositories {
 dependencies {
 
 }
+
+

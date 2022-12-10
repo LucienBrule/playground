@@ -1,0 +1,29 @@
+# Dockerfile.dev : client
+
+# This image is meant to have the source volume mounted into it
+# at /app
+FROM registry.access.redhat.com/ubi8/openjdk-17:1.11
+USER root
+
+# Make a user to run the app as
+RUN useradd -ms /bin/bash -d /home/app app
+ENV HOME=/home/app
+RUN chown -R app:app /home/app
+
+# Own the jboss user from the upstream image
+RUN chown -R app:app /home/jboss
+
+# Work around for docker compose
+RUN mkdir /app && \
+    mkdir /app/build && \
+    mkdir /app/.gradle && \
+    mkdir /app/buildSrc/build -p && \
+    mkdir /app/web/build -p && \
+    chown -R app:app /app && \
+    chmod -R g+rwx /app
+
+USER app
+
+WORKDIR /app
+EXPOSE 9000
+ENV PORT 9000
