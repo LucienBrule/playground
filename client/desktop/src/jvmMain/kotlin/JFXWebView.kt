@@ -18,8 +18,8 @@ class JFXWebView(url: String) : JFXPanel() {
     private var window: JSObject? = null
 
     class JavaBridge {
-        fun <T: JSObject>log(message: T) {
-           println(message)
+        fun <T : JSObject> log(message: T) {
+            println(message)
 
         }
     }
@@ -32,8 +32,13 @@ class JFXWebView(url: String) : JFXPanel() {
     }
 
     private fun initScene() {
-        val webview = WebView().also {
-            it.pageFill = Color.TRANSPARENT
+        val webview = WebView()
+
+        webview.contextMenuEnabledProperty().set(true)
+
+        webview.apply {
+            contextMenuEnabledProperty().set(true)
+            pageFill = Color.TRANSPARENT
         }
         engine = webview.engine.apply {
             isJavaScriptEnabled = true
@@ -48,7 +53,10 @@ class JFXWebView(url: String) : JFXPanel() {
                 }
             }
         }
-        scene = Scene(webview).also { it.fill = Color.TRANSPARENT }
+
+        scene = Scene(webview).apply{
+            fill = Color.BLACK
+        }
     }
 
     fun load(url: String) {
@@ -58,25 +66,25 @@ class JFXWebView(url: String) : JFXPanel() {
                 throw Exception("called load on null engine")
             }
             engine!!.load(url)
-            engine!!.loadWorker.stateProperty().addListener { ov, oldState, newState ->
+            engine!!.loadWorker.stateProperty()
+                .addListener { _, oldState, newState ->
 
-                println("State changed from $oldState to $newState")
+                    println("State changed from $oldState to $newState")
 
-                if (newState == Worker.State.SUCCEEDED) {
-                    println("Loaded")
-                    window = engine!!.executeScript("window") as JSObject
-                    window!!.setMember("bridge", bridge)
-                    engine!!.executeScript(
-                        """
+                    if (newState == Worker.State.SUCCEEDED) {
+                        println("Loaded")
+                        window = engine!!.executeScript("window") as JSObject
+                        window!!.setMember("bridge", bridge)
+                        engine!!.executeScript(
+                            """
                             console.error = function(...message){bridge.log(message)};
                             console.info = function(...message){bridge.log(message)};
                             console.log = function(...message){bridge.log(message)};
                             console.warn = function(...message){bridge.log(message)};
                         """.trimIndent()
-                    )
+                        )
+                    }
                 }
-            }
-
 
 
         }

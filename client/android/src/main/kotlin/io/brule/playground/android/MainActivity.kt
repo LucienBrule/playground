@@ -1,11 +1,14 @@
 package io.brule.playground.android
 
-import com.facebook.react.ReactActivity
-import com.facebook.react.ReactActivityDelegate
+import androidx.activity.compose.setContent
+import androidx.appcompat.app.AppCompatActivity
+import io.brule.playground.common.MainView
 
-
-class MainActivity : ReactActivity() {
-    override fun getMainComponentName(): String = "Playground"
-    override fun createReactActivityDelegate() =
-        ReactActivityDelegate(this, mainComponentName)
+class MainActivity: AppCompatActivity() {
+    override fun onCreate(savedInstanceState: android.os.Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContent {
+            MainView()
+        }
+    }
 }

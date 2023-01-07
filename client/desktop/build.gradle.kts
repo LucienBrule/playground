@@ -31,7 +31,6 @@ kotlin {
                 implementation(compose.animationGraphics)
                 implementation(compose.ui)
                 implementation(compose.runtime)
-                implementation("io.coil-kt:coil-compose:2.2.2")
 
             }
         }

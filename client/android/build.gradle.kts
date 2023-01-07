@@ -4,42 +4,27 @@
 plugins {
     id("org.jetbrains.compose")
     id("com.android.application")
-    kotlin("android")
-
+    kotlin("multiplatform")
 }
 
 group "io.brule.playground"
 version "1.0-SNAPSHOT"
 
 
-val jscFlavor = "org.webkit:android-jsc:+"
 
-
-dependencies {
-    implementation(project(":client:common"))
-
-
-    // don't let this be auto updated it should stay at 0.70.6
-    implementation("com.facebook.react:react-native:0.70.6")
-    implementation("com.facebook.react:react-native-gradle-plugin")
-    implementation(jscFlavor)
-    debugImplementation("com.facebook.flipper:flipper:0.125.0") {
-        exclude(group = "com.facebook.fbjni")
-    }
-
-    debugImplementation("com.facebook.flipper:flipper-network-plugin:0.125.0") {
-        exclude(group = "com.facebook.flipper")
-        exclude(group = "com.squareup.okhttp3", module = "okhttp")
-    }
-
-    debugImplementation("com.facebook.flipper:flipper-fresco-plugin:0.125.0") {
-        exclude(group = "com.facebook.flipper")
-    }
-
-    implementation("com.facebook.react:hermes-engine") {
-        exclude(group = "com.facebook.fbjni")
+kotlin{
+    android()
+    sourceSets{
+        val androidMain by getting{
+            dependencies{
+                implementation(project(":client:common"))
+                implementation("androidx.appcompat:appcompat-resources:1.5.1")
+                implementation("androidx.activity:activity-compose:1.6.1")
+            }
+        }
     }
 }
+
 
 val androidCompileSDKVersion: String by project
 val androidTargetSDKVersion: String by project
@@ -79,7 +64,4 @@ android {
             isMinifyEnabled = false
         }
     }
-
 }
-
-apply(from = "${project.extra["nodeModules"]}/react-native/react.gradle")

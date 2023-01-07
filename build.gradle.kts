@@ -15,15 +15,15 @@ plugins {
 }
 
 
-gradle.taskGraph.whenReady {
-    if (hasTask(":lib:build")) {
-        allTasks.forEach {
-            if (it.project.name == "web") {
-                it.enabled = false
-            }
-        }
-    }
-}
+//gradle.taskGraph.whenReady {
+//    if (hasTask(":lib:build")) {
+//        allTasks.forEach {
+//            if (it.project.name == "web") {
+//                it.enabled = false
+//            }
+//        }
+//    }
+//}
 
 gradle.taskGraph.whenReady {
     println(

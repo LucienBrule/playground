@@ -2,4 +2,4 @@
 echo "Starting web client..."
 
 
-./gradlew :web:browserRun --no-daemon --continuous
+./gradlew :www:browserRun --no-daemon --continuous

@@ -113,10 +113,10 @@ kotlin {
 
 
 
-rootProject.plugins.withType<org.jetbrains.kotlin.gradle.targets.js.yarn.YarnPlugin> {
+project.plugins.withType<org.jetbrains.kotlin.gradle.targets.js.yarn.YarnPlugin> {
     rootProject.the<org.jetbrains.kotlin.gradle.targets.js.yarn.YarnRootExtension>()
         .apply {
-            lockFileDirectory = project(":web").projectDir
+            lockFileDirectory = rootDir
             lockFileName = "yarn.lock"
             ignoreScripts = false
         }

@@ -5,11 +5,12 @@ include("client:ios")
 include("client:android")
 include("client:desktop")
 include("client:common")
+include("client:web")
 include("server")
 include("deployment")
 include("deployment:compose")
 include("lib")
-include("web")
+include("www")
 
 pluginManagement {
     val kotlinVersion: String by settings
