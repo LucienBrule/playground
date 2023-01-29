@@ -4,12 +4,9 @@ import io.quarkus.runtime.Quarkus
 import io.quarkus.runtime.ShutdownEvent
 import io.quarkus.runtime.StartupEvent
 import io.quarkus.runtime.annotations.QuarkusMain
-import io.vertx.core.Vertx
-import io.vertx.core.eventbus.MessageCodec
 import org.jboss.logging.Logger
 import javax.enterprise.context.ApplicationScoped
 import javax.enterprise.event.Observes
-import javax.inject.Inject
 
 @QuarkusMain
 class Application {

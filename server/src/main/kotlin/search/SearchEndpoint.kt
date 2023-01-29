@@ -1,8 +1,8 @@
-package io.brule.search
+package io.brule.playground.search.server
 
-import io.brule.SearchQuery
-import io.brule.SearchResult
-import io.brule.SearchResults
+import io.brule.playground.lib.SearchQuery
+import io.brule.playground.lib.SearchResult
+import io.brule.playground.lib.SearchResults
 import io.ktor.util.*
 import kotlinx.serialization.json.Json
 import org.jboss.logging.Logger
