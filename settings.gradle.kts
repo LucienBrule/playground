@@ -9,7 +9,7 @@ include("client:web")
 include("server")
 include("deployment")
 include("deployment:compose")
-include("lib")
+include(":lib")
 include("www")
 
 pluginManagement {

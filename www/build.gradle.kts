@@ -29,7 +29,7 @@ fun kwrapper(target: String): String =
 
 
 dependencies {
-    implementation("io.brule:lib:alpha")
+    implementation(project(":lib"))
 
     testImplementation(kotlin("test"))
     implementation(kwrapper("react:18.2.0"))

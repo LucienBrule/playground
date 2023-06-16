@@ -4,6 +4,11 @@ version = "alpha"
 
 
 val ktor_version: String by project
+publishing{
+    repositories{
+        mavenLocal()
+    }
+}
 
 plugins {
     kotlin("multiplatform")
